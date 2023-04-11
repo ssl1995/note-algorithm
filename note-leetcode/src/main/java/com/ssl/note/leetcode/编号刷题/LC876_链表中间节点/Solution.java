@@ -1,6 +1,6 @@
 package com.ssl.note.leetcode.编号刷题.LC876_链表中间节点;
 
-import com.ssl.note.algorithm.leetcode.utils.ListNode;
+import com.ssl.note.leetcode.utils.ListNode;
 
 
 public class Solution {

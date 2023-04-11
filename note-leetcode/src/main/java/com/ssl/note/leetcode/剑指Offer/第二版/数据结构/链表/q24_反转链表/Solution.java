@@ -1,7 +1,7 @@
 package com.ssl.note.leetcode.剑指Offer.第二版.数据结构.链表.q24_反转链表;
 
 
-import com.ssl.note.algorithm.leetcode.utils.ListNode;
+import com.ssl.note.leetcode.utils.ListNode;
 
 public class Solution {
 

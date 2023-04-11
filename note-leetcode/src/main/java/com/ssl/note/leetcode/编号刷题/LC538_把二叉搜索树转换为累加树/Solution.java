@@ -1,6 +1,6 @@
 package com.ssl.note.leetcode.编号刷题.LC538_把二叉搜索树转换为累加树;
 
-import com.ssl.note.algorithm.leetcode.utils.TreeNode;
+import com.ssl.note.leetcode.utils.TreeNode;
 
 /**
  * @author SongShengLin

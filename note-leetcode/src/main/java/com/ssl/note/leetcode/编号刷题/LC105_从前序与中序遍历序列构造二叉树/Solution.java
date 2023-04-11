@@ -1,6 +1,6 @@
 package com.ssl.note.leetcode.编号刷题.LC105_从前序与中序遍历序列构造二叉树;
 
-import com.ssl.note.algorithm.leetcode.utils.TreeNode;
+import com.ssl.note.leetcode.utils.TreeNode;
 
 import java.util.HashMap;
 import java.util.Map;

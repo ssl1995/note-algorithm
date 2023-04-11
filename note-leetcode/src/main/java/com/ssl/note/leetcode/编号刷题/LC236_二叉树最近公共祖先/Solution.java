@@ -1,7 +1,7 @@
 package com.ssl.note.leetcode.编号刷题.LC236_二叉树最近公共祖先;
 
 
-import com.ssl.note.algorithm.leetcode.utils.TreeNode;
+import com.ssl.note.leetcode.utils.TreeNode;
 
 /**
  * @author SongShengLin

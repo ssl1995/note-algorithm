@@ -1,6 +1,6 @@
 package com.ssl.note.leetcode.编号刷题.LC92_反转链表II;
 
-import com.ssl.note.algorithm.leetcode.utils.ListNode;
+import com.ssl.note.leetcode.utils.ListNode;
 
 /**
  * @Author: SongShengLin

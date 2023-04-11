@@ -1,6 +1,6 @@
 package com.ssl.note.leetcode.剑指Offer.第二版.数据结构.链表.q52_两个链表的第一个相交结点.NC3_链表入环结点;
 
-import com.ssl.note.algorithm.leetcode.utils.ListNode;
+import com.ssl.note.leetcode.utils.ListNode;
 
 public class Solution {
 

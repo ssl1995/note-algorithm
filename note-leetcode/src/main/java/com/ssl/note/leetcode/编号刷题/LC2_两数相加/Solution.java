@@ -1,6 +1,6 @@
 package com.ssl.note.leetcode.编号刷题.LC2_两数相加;
 
-import com.ssl.note.algorithm.leetcode.utils.ListNode;
+import com.ssl.note.leetcode.utils.ListNode;
 
 public class Solution {
 

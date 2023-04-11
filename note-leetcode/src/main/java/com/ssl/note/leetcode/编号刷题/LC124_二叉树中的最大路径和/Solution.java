@@ -1,6 +1,6 @@
 package com.ssl.note.leetcode.编号刷题.LC124_二叉树中的最大路径和;
 
-import com.ssl.note.algorithm.leetcode.utils.TreeNode;
+import com.ssl.note.leetcode.utils.TreeNode;
 
 /**
  * @Author: SongShengLin

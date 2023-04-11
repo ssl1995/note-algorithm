@@ -1,6 +1,6 @@
 package com.ssl.note.leetcode.编号刷题.LC543_二叉树的直径;
 
-import com.ssl.note.algorithm.leetcode.utils.TreeNode;
+import com.ssl.note.leetcode.utils.TreeNode;
 
 /**
  * @author SongShengLin

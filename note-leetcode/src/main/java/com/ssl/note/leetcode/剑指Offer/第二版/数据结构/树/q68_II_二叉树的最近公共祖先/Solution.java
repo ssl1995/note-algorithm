@@ -1,7 +1,7 @@
 package com.ssl.note.leetcode.剑指Offer.第二版.数据结构.树.q68_II_二叉树的最近公共祖先;
 
 
-import com.ssl.note.algorithm.leetcode.utils.TreeNode;
+import com.ssl.note.leetcode.utils.TreeNode;
 
 public class Solution {
 

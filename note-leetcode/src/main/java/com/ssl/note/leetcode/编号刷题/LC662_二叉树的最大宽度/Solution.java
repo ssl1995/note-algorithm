@@ -1,6 +1,6 @@
 package com.ssl.note.leetcode.编号刷题.LC662_二叉树的最大宽度;
 
-import com.ssl.note.algorithm.leetcode.utils.TreeNode;
+import com.ssl.note.leetcode.utils.TreeNode;
 
 import java.util.HashMap;
 import java.util.Map;

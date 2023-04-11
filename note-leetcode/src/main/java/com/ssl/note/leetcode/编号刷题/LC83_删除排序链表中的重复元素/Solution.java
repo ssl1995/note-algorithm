@@ -1,6 +1,7 @@
 package com.ssl.note.leetcode.编号刷题.LC83_删除排序链表中的重复元素;
 
-import com.ssl.note.algorithm.leetcode.utils.ListNode;
+
+import com.ssl.note.leetcode.utils.ListNode;
 
 public class Solution {
     // 删除重复结点，保留重复结点一次：1->2->2->3 返回 1 ->2->3

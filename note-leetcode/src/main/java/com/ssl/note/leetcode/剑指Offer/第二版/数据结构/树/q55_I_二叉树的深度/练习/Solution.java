@@ -1,6 +1,6 @@
 package com.ssl.note.leetcode.剑指Offer.第二版.数据结构.树.q55_I_二叉树的深度.练习;
 
-import com.ssl.note.algorithm.leetcode.utils.TreeNode;
+import com.ssl.note.leetcode.utils.TreeNode;
 
 /**
  * @author SongShengLin

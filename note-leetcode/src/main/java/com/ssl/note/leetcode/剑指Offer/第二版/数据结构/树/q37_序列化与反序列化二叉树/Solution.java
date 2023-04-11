@@ -1,7 +1,7 @@
 package com.ssl.note.leetcode.剑指Offer.第二版.数据结构.树.q37_序列化与反序列化二叉树;
 
 
-import com.ssl.note.algorithm.leetcode.utils.TreeNode;
+import com.ssl.note.leetcode.utils.TreeNode;
 
 import java.util.LinkedList;
 import java.util.Queue;

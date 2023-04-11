@@ -1,8 +1,9 @@
 package com.ssl.note.zuo.learn.C17_图.最小生成树;
 
-import com.ssl.note.algorithm.learn.C17_图.graph_me.Edge;
-import com.ssl.note.algorithm.learn.C17_图.graph_me.Graph;
-import com.ssl.note.algorithm.learn.C17_图.graph_me.Node;
+
+import com.ssl.note.zuo.learn.C17_图.graph_me.Edge;
+import com.ssl.note.zuo.learn.C17_图.graph_me.Graph;
+import com.ssl.note.zuo.learn.C17_图.graph_me.Node;
 
 import java.util.Comparator;
 import java.util.HashSet;

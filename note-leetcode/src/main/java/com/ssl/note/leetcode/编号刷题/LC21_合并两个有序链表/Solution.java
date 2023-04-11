@@ -1,7 +1,7 @@
 package com.ssl.note.leetcode.编号刷题.LC21_合并两个有序链表;
 
 
-import com.ssl.note.algorithm.leetcode.utils.ListNode;
+import com.ssl.note.leetcode.utils.ListNode;
 
 public class Solution {
     /**

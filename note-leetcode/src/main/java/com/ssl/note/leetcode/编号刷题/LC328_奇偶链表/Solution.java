@@ -1,6 +1,6 @@
 package com.ssl.note.leetcode.编号刷题.LC328_奇偶链表;
 
-import com.ssl.note.algorithm.leetcode.utils.ListNode;
+import com.ssl.note.leetcode.utils.ListNode;
 
 public class Solution {
     // 条件：{1,4,6,3,7}，返回：{1,6,7,4,3}(索引从1开始，返回奇数在前结点)

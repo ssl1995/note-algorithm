@@ -1,6 +1,6 @@
 package com.ssl.note.leetcode.编号刷题.LC234_回文链表;
 
-import com.ssl.note.algorithm.leetcode.utils.ListNode;
+import com.ssl.note.leetcode.utils.ListNode;
 
 import java.util.ArrayList;
 import java.util.List;

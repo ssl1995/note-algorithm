@@ -1,6 +1,6 @@
 package com.ssl.note.leetcode.编号刷题.LC19_删除链表的倒数第N个结点;
 
-import com.ssl.note.algorithm.leetcode.utils.ListNode;
+import com.ssl.note.leetcode.utils.ListNode;
 
 public class Solution {
 

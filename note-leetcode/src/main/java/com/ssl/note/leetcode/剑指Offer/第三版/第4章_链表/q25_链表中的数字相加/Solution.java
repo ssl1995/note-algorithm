@@ -1,6 +1,6 @@
 package com.ssl.note.leetcode.剑指Offer.第三版.第4章_链表.q25_链表中的数字相加;
 
-import com.ssl.note.algorithm.leetcode.utils.ListNode;
+import com.ssl.note.leetcode.utils.ListNode;
 
 import java.util.Deque;
 import java.util.LinkedList;

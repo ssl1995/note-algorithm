@@ -1,6 +1,6 @@
 package com.ssl.note.leetcode.剑指Offer.第三版.第4章_链表.q21_删除倒数第k个节点;
 
-import com.ssl.note.algorithm.leetcode.utils.ListNode;
+import com.ssl.note.leetcode.utils.ListNode;
 
 /**
  * @author songshenglin

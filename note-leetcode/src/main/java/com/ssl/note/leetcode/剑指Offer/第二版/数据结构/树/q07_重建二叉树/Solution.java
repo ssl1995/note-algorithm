@@ -1,6 +1,6 @@
 package com.ssl.note.leetcode.剑指Offer.第二版.数据结构.树.q07_重建二叉树;
 
-import com.ssl.note.algorithm.leetcode.utils.TreeNode;
+import com.ssl.note.leetcode.utils.TreeNode;
 
 import java.util.HashMap;
 import java.util.Map;

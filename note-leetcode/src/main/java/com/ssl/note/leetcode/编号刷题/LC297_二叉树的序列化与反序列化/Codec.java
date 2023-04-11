@@ -1,6 +1,6 @@
 package com.ssl.note.leetcode.编号刷题.LC297_二叉树的序列化与反序列化;
 
-import com.ssl.note.algorithm.leetcode.utils.TreeNode;
+import com.ssl.note.leetcode.utils.TreeNode;
 
 import java.util.LinkedList;
 import java.util.Queue;

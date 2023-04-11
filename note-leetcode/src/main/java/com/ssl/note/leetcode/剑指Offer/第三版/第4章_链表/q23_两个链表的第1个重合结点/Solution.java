@@ -1,6 +1,6 @@
 package com.ssl.note.leetcode.剑指Offer.第三版.第4章_链表.q23_两个链表的第1个重合结点;
 
-import com.ssl.note.algorithm.leetcode.utils.ListNode;
+import com.ssl.note.leetcode.utils.ListNode;
 
 /**
  * @author SongShengLin

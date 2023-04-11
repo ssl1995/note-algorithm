@@ -1,6 +1,6 @@
 package com.ssl.note.leetcode.编号刷题.LC148_排序链表.p;
 
-import com.ssl.note.algorithm.leetcode.utils.ListNode;
+import com.ssl.note.leetcode.utils.ListNode;
 
 class Solution {
     public ListNode sortList(ListNode head) {
