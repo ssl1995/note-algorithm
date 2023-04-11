@@ -1,7 +1,8 @@
 package com.ssl.note.zuo.learn.C17_图.拓扑排序;
 
-import com.ssl.note.algorithm.learn.C17_图.graph_me.Graph;
-import com.ssl.note.algorithm.learn.C17_图.graph_me.Node;
+
+import com.ssl.note.zuo.learn.C17_图.graph_me.Graph;
+import com.ssl.note.zuo.learn.C17_图.graph_me.Node;
 
 import java.util.ArrayList;
 import java.util.HashMap;

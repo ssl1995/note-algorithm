@@ -1,11 +1,12 @@
 package com.ssl.note.zuo.learn.C17_图.一个点到其他点的距离;
 
-import com.ssl.note.algorithm.learn.C17_图.graph_me.Edge;
-import com.ssl.note.algorithm.learn.C17_图.graph_me.Node;
+
+import com.ssl.note.zuo.learn.C17_图.graph_me.Edge;
+import com.ssl.note.zuo.learn.C17_图.graph_me.Node;
 
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map.Entry;
+import java.util.Map;
 
 // no negative weight
 public class Code06_Dijkstra {
@@ -46,7 +47,7 @@ public class Code06_Dijkstra {
     public static Node getMinDistanceAndUnselectedNode(HashMap<Node, Integer> distanceMap, HashSet<Node> touchedNodes) {
         Node minNode = null;
         int minDistance = Integer.MAX_VALUE;
-        for (Entry<Node, Integer> entry : distanceMap.entrySet()) {
+        for (Map.Entry<Node, Integer> entry : distanceMap.entrySet()) {
             Node node = entry.getKey();
             int distance = entry.getValue();
             if (!touchedNodes.contains(node) && distance < minDistance) {
