@@ -4,6 +4,11 @@ import java.util.Stack;
 
 public class Code05_GetMinStack {
 
+	/**
+	 * 返回栈中最小元素
+	 * 方法1：非同步压入，新数大，就只压入data栈
+	 * 方法2：同步压入，新数大，min压入min栈的peek，还压入data栈
+	 */
 	public static class MyStack1 {
 		private Stack<Integer> stackData;
 		private Stack<Integer> stackMin;

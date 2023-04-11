@@ -6,6 +6,10 @@ import java.util.TreeMap;
 
 public class HashMapAndSortedMap {
 
+	/**
+	 * 哈希表：增、删、改、查O(1)
+	 * 有序表：增、删、改O(logN)、查O(logN)
+	 */
 	public static class Node {
 		public int value;
 

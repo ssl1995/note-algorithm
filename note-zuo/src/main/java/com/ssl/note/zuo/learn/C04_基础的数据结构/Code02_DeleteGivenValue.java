@@ -12,10 +12,10 @@ public class Code02_DeleteGivenValue {
     }
 
     /**
-     * 删除给定的值
+     * 单链表：删除给定的值
      */
     public static Node removeValue(Node head, int num) {
-        // 1.head来到第一个不需要删的位置，作为返回值
+        // 1.head来到第一个不需要删的位置，作为返回值=防止删除的是第一个节点
         while (head != null) {
             if (head.value != num) {
                 break;

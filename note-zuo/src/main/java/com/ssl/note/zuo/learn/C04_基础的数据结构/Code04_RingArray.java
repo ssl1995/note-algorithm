@@ -2,7 +2,11 @@ package com.ssl.note.zuo.learn.C04_基础的数据结构;
 
 public class Code04_RingArray {
 
-    // 循环数组实现队列
+    /**
+     * 用数组实现不超过固定大小的栈和队列
+     * 栈：正常使用数组，先进后出
+     * 队列：循环数组
+     */
     public static class MyQueue {
         private int[] arr;
         private int begin;// begin，拿数的位置
