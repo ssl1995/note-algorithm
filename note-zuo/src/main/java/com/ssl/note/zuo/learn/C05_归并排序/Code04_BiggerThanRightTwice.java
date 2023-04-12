@@ -2,7 +2,16 @@ package com.ssl.note.zuo.learn.C05_归并排序;
 
 public class Code04_BiggerThanRightTwice {
 
-    // arr的每个num右边有多少个数 *2 < 当期num
+    /**
+     * 在一个数组中，对于每个数num，求有多少个后面的数 * 2 依然< num，求总个数
+     * 比如：[3,1,7,0,2]
+     * 3的后面有：1，0
+     * 1的后面有：0
+     * 7的后面有：0，2
+     * 0的后面没有
+     * 2的后面没有
+     * 所以总共有5个
+     */
     public static int biggerTwice(int[] arr) {
         if (arr == null || arr.length < 2) {
             return 0;
@@ -20,6 +29,7 @@ public class Code04_BiggerThanRightTwice {
     }
 
     public static int merge(int[] arr, int L, int m, int r) {
+        // 思想：归并排序中的merge前，做一个数据处理，得到num后的有多少个数*2<num
         // 左组：[L....M]   右组：[M+1....R]
         int ans = 0;
         // 目前囊括进来的数，是从[M+1, windowR)
@@ -31,6 +41,7 @@ public class Code04_BiggerThanRightTwice {
                 windowR++;
             }
             // windowR是右边界开区间，所以是-1
+            // (m+1,windowR-1)的长度 =windowR-1-(m+1)+1 = windowR-m-1
             ans += windowR - m - 1;
         }
         // 归并排序

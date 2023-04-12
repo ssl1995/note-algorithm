@@ -2,6 +2,12 @@ package com.ssl.note.zuo.learn.C05_归并排序;
 
 public class Code03_ReversePair {
 
+    /**
+     * 逆序对问题：
+     * 在一个数组中，任何一个前面的数a，和任何一个后面的数b，如果(a,b)是降序的，就称为逆序对
+     * 返回数组中所有的逆序对个数
+     * 补充：与小和问题是一对相对的问题，小和反过来就是逆序对
+     */
     public static int reverPairNumber(int[] arr) {
         if (arr == null || arr.length < 2) {
             return 0;
@@ -35,6 +41,7 @@ public class Code03_ReversePair {
             res += arr[p1] > arr[p2] ? (p2 - m) : 0;
             help[i--] = arr[p1] > arr[p2] ? arr[p1--] : arr[p2--];
         }
+
         while (p1 >= L) {
             help[i--] = arr[p1--];
         }

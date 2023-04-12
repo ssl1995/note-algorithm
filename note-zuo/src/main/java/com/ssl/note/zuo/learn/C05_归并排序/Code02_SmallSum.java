@@ -2,6 +2,17 @@ package com.ssl.note.zuo.learn.C05_归并排序;
 
 public class Code02_SmallSum {
 
+    /**
+     * 小和问题
+     * 在一个数组中，一个数左边比它小的数的总和，叫数的小和，所有数的小和累加起来，叫数组小和。求数组小和。
+     * 例子： [1,3,4,2,5]
+     * 1左边比1小的数：没有
+     * 3左边比3小的数：1
+     * 4左边比4小的数：1、3
+     * 2左边比2小的数：1
+     * 5左边比5小的数：1、3、4、 2
+     * 所以数组的小和为1+1+3+1+1+3+4+2=16
+     */
     public static int smallSum(int[] arr) {
         if (arr == null || arr.length < 2) {
             return 0;
@@ -23,9 +34,9 @@ public class Code02_SmallSum {
         return
                 process(arr, l, mid) // 左边排序产生小和的量
                         +
-                process(arr, mid + 1, r) // 右边排序产生小和的量
+                        process(arr, mid + 1, r) // 右边排序产生小和的量
                         +
-                merge(arr, l, mid, r);// merge产生小和的量
+                        merge(arr, l, mid, r);// merge产生小和的量
     }
 
     public static int merge(int[] arr, int L, int m, int r) {
@@ -38,8 +49,9 @@ public class Code02_SmallSum {
         int res = 0;
         while (p1 <= m && p2 <= r) {
             // 小和问题：当前数前面有多少个数比它小？
+            // [1,3] [4,5]
             // = x右边有多少个数比它大？ = (r - p2 + 1) * arr[p1]
-             res += arr[p1] < arr[p2] ? (r - p2 + 1) * arr[p1] : 0;
+            res += arr[p1] < arr[p2] ? (r - p2 + 1) * arr[p1] : 0;
             // 归并的过程
             help[i++] = arr[p1] < arr[p2] ? arr[p1++] : arr[p2++];
         }

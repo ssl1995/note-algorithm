@@ -2,7 +2,13 @@ package com.ssl.note.zuo.learn.C05_归并排序;
 
 public class Code01_MergeSort {
 
-    // 递归方法实现
+    /**
+     * 递归方法实现
+     * 1）整体是递归，左边排好序+右边排好序+merge让整体有序
+     * 2）让其整体有序的过程里用了排外序方法
+     * 3）利用master公式来求解时间复杂度
+     * 4）当然可以用非递归实现
+     */
     public static void mergeSort1(int[] arr) {
         if (arr == null || arr.length < 2) {
             return;
