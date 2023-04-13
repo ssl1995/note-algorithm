@@ -8,9 +8,8 @@ public class Code03_DoubleEndsQueueToStackAndQueue {
 
     /**
      * 栈和队列常见题
-     * 1.用栈实现队列：LC232_用栈实现队列
-     * 2.用队列实现栈：LC225_队列实现栈
-     * 这里用双向队列来实现这两个题
+     * 1.用栈实现队列：LC232_用栈实现队列;自定义双向队列来实现这两个题
+     * 2.用队列实现栈：LC225_队列实现栈;自定义双向队列来实现这两个题
      */
     public static class Node<T> {
         public T value;
