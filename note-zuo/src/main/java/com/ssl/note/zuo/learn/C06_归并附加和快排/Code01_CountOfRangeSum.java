@@ -18,6 +18,8 @@ public class Code01_CountOfRangeSum {
             return 0;
         }
         // 前缀和数组：便于获取arr[i,j]的累加和
+        // nums= [-2,5,-1]
+        // sum = [-2,3,2]
         long[] sum = new long[nums.length];
         sum[0] = nums[0];
         for (int i = 1; i < nums.length; i++) {
@@ -42,8 +44,7 @@ public class Code01_CountOfRangeSum {
         int windowR = L;
         // [windowL, windowR)在同一个merge中不回退
         for (int i = M + 1; i <= R; i++) {
-            // 已知preSum[i]和[lower,upper]
-            // 可以推算出preSum[0..i-1]有多少在[lower-preSum[i],upper-preSum[i]]
+            // 核心思路：已知preSum[i]和[lower,upper]，可以推算出preSum[0..i-1]有多少在[lower-preSum[i],upper-preSum[i]]
             // -upper是min
             long min = preSum[i] - upper;
             // -lower是max
