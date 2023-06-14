@@ -58,7 +58,7 @@ public class Code02_EvenTimesOddTimes {
             //   011011010000
             //  如何能得到最右边的1
             //   000000010000
-            // 把最右侧的1提取出来 = a & (-a+1) = a & (-a)
+            // 把最右侧的1提取出来 = a & (~a+1) = a & (-a)
             int rightOne = N & ((~N) + 1);
             count++;
             N ^= rightOne;
