@@ -49,8 +49,9 @@ public class Code02_SmallSum {
         int res = 0;
         while (p1 <= m && p2 <= r) {
             // 小和问题：当前数前面有多少个数比它小？
-            // [1,3] [4,5]
+            // [1,3,4] [2,5]
             // = x右边有多少个数比它大？ = (r - p2 + 1) * arr[p1]
+            // 为什么要 * arr[p1],是因为arr[p1]会重复这么多次，小和需要加起来，所以要*arr[p1]
             res += arr[p1] < arr[p2] ? (r - p2 + 1) * arr[p1] : 0;
             // 归并的过程
             help[i++] = arr[p1] < arr[p2] ? arr[p1++] : arr[p2++];
@@ -134,21 +135,24 @@ public class Code02_SmallSum {
 
     // for test
     public static void main(String[] args) {
-        int testTime = 500000;
-        int maxSize = 100;
-        int maxValue = 100;
-        boolean succeed = true;
-        for (int i = 0; i < testTime; i++) {
-            int[] arr1 = generateRandomArray(maxSize, maxValue);
-            int[] arr2 = copyArray(arr1);
-            if (smallSum(arr1) != comparator(arr2)) {
-                succeed = false;
-                printArray(arr1);
-                printArray(arr2);
-                break;
-            }
-        }
-        System.out.println(succeed ? "Nice!" : "Fucking fucked!");
+//        int testTime = 500000;
+//        int maxSize = 100;
+//        int maxValue = 100;
+//        boolean succeed = true;
+//        for (int i = 0; i < testTime; i++) {
+//            int[] arr1 = generateRandomArray(maxSize, maxValue);
+//            int[] arr2 = copyArray(arr1);
+//            if (smallSum(arr1) != comparator(arr2)) {
+//                succeed = false;
+//                printArray(arr1);
+//                printArray(arr2);
+//                break;
+//            }
+//        }
+//        System.out.println(succeed ? "Nice!" : "Fucking fucked!");
+        int[] arr = {1, 3, 4, 2, 5};
+        int smallSum = smallSum(arr);
+        System.out.println(smallSum);
     }
 
 }

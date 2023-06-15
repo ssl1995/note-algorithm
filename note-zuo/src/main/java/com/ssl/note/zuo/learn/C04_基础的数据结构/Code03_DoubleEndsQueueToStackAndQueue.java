@@ -1,5 +1,6 @@
 package com.ssl.note.zuo.learn.C04_基础的数据结构;
 
+import java.util.Deque;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
@@ -11,6 +12,93 @@ public class Code03_DoubleEndsQueueToStackAndQueue {
      * 1.用栈实现队列：LC232_用栈实现队列;自定义双向队列来实现这两个题
      * 2.用队列实现栈：LC225_队列实现栈;自定义双向队列来实现这两个题
      */
+
+    // LC232：栈实现队列
+    static class MyQueue1 {
+
+        private LinkedList<Integer> stack1;
+        private LinkedList<Integer> stack2;
+
+
+        public MyQueue1() {
+            stack1 = new LinkedList<>();
+            stack2 = new LinkedList<>();
+        }
+
+        public void push(int x) {
+            stack1.push(x);
+        }
+
+        public int pop() {
+            if (empty()) {
+                return -1;
+            }
+            if (stack2.isEmpty()) {
+                pushToStack2();
+            }
+            return stack2.pop();
+        }
+
+        public int peek() {
+            if (empty()) {
+                return -1;
+            }
+            if (stack2.isEmpty()) {
+                pushToStack2();
+            }
+            return stack2.peek();
+        }
+
+        public boolean empty() {
+            return stack2.isEmpty() && stack1.isEmpty();
+        }
+
+        private void pushToStack2() {
+            while (!stack1.isEmpty()) {
+                stack2.push(stack1.pop());
+            }
+        }
+    }
+
+    // LC225:队列实现栈
+    class MyStack1 {
+        private Deque<Integer> deque;
+
+        public MyStack1() {
+            deque = new LinkedList<>();
+        }
+
+        public void push(int x) {
+            int n = deque.size();
+            deque.offer(x);
+            while (n > 0) {
+                deque.offer(deque.poll());
+                n--;
+            }
+        }
+
+        public int pop() {
+            return deque.poll();
+        }
+
+        public int top() {
+            return deque.peek();
+        }
+
+        public boolean empty() {
+            return deque.isEmpty();
+        }
+    }
+
+    /**
+     * Your MyStack object will be instantiated and called as such:
+     * MyStack obj = new MyStack();
+     * obj.push(x);
+     * int param_2 = obj.pop();
+     * int param_3 = obj.top();
+     * boolean param_4 = obj.empty();
+     */
+
     public static class Node<T> {
         public T value;
         public Node<T> last;
