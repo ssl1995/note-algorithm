@@ -58,12 +58,13 @@ public class Code03_KM {
     }
 
     public static void mapCreater(HashMap<Integer, Integer> map) {
+        // 初始胡为2^0=1
         int value = 1;
         for (int i = 0; i < 32; i++) {
-            // key=1，value=0
-            // key=2，value=1
-            // key=4，value=2
-            // key=8，value=3
+            // 1 0
+            // 2 1
+            // 4 2
+            // ...
             map.put(value, i);
             value <<= 1;
         }
@@ -129,30 +130,35 @@ public class Code03_KM {
     }
 
     public static void main(String[] args) {
-        int kinds = 5;
-        int range = 30;
-        int testTime = 100000;
-        int max = 9;
-        System.out.println("测试开始");
-        for (int i = 0; i < testTime; i++) {
-            int a = (int) (Math.random() * max) + 1; // a 1 ~ 9
-            int b = (int) (Math.random() * max) + 1; // b 1 ~ 9
-            int k = Math.min(a, b);
-            int m = Math.max(a, b);
-            // k < m
-            if (k == m) {
-                m++;
-            }
-            int[] arr = randomArray(kinds, range, k, m);
-            int ans1 = test(arr, k, m);
-            int ans2 = onlyKTimes(arr, k, m);
-            if (ans1 != ans2) {
-                System.out.println(ans1);
-                System.out.println(ans2);
-                System.out.println("出错了！");
-            }
-        }
-        System.out.println("测试结束");
+//        int kinds = 5;
+//        int range = 30;
+//        int testTime = 100000;
+//        int max = 9;
+//        System.out.println("测试开始");
+//        for (int i = 0; i < testTime; i++) {
+//            int a = (int) (Math.random() * max) + 1; // a 1 ~ 9
+//            int b = (int) (Math.random() * max) + 1; // b 1 ~ 9
+//            int k = Math.min(a, b);
+//            int m = Math.max(a, b);
+//            // k < m
+//            if (k == m) {
+//                m++;
+//            }
+//            int[] arr = randomArray(kinds, range, k, m);
+//            int ans1 = test(arr, k, m);
+//            int ans2 = onlyKTimes(arr, k, m);
+//            if (ans1 != ans2) {
+//                System.out.println(ans1);
+//                System.out.println(ans2);
+//                System.out.println("出错了！");
+//            }
+//        }
+//        System.out.println("测试结束");
+        int[] arr = {1, 1, 3, 3, 3, 3};
+        int k = 2;
+        int m = 4;
+        int kNum = onlyKTimes(arr, k, m);
+        System.out.println(kNum);
 
     }
 
