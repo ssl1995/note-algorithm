@@ -15,7 +15,7 @@ public class Code03_KM {
      * 找到，出现了K次的数，
      */
     public static int onlyKTimes(int[] arr, int k, int m) {
-        // 1.初始化map，保存每个二进制出现的次数
+        // 1.初始化map，获取32位二进制1出现的位置
         if (map.size() == 0) {
             mapCreater(map);
         }
