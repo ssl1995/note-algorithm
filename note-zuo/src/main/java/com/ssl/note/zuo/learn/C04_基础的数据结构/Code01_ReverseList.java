@@ -26,6 +26,10 @@ public class Code01_ReverseList {
 
     /**
      * 反转单链表
+     * pre head next
+     * 1. 记录next
+     * 2. 反转head.next
+     * 3. pre和head迭代往下
      */
     public static Node reverseLinkedList(Node head) {
         Node pre = null;
@@ -43,6 +47,9 @@ public class Code01_ReverseList {
 
     /**
      * 反转双链表
+     * 1. 记录next
+     * 2. 反转head.next、反转head.pre
+     * 3. pre和head迭代往下
      */
     public static DoubleNode reverseDoubleList(DoubleNode head) {
         DoubleNode pre = null;
