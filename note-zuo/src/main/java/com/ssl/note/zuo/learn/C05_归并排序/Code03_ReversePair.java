@@ -40,6 +40,7 @@ public class Code03_ReversePair {
         int res = 0;
         while (p1 >= L && p2 > m) {
             // 逆序对 = x右边有多少个数比它小
+            // [7,5,6] [4]
             res += arr[p1] > arr[p2] ? (p2 - m) : 0;
             help[i--] = arr[p1] > arr[p2] ? arr[p1--] : arr[p2--];
         }
