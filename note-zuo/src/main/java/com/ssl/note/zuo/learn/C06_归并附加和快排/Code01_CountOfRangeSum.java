@@ -33,8 +33,7 @@ public class Code01_CountOfRangeSum {
             return sum[L] >= lower && sum[L] <= upper ? 1 : 0;
         }
         int M = L + ((R - L) >> 1);
-        return process(sum, L, M, lower, upper)
-                + process(sum, M + 1, R, lower, upper)
+        return process(sum, L, M, lower, upper) + process(sum, M + 1, R, lower, upper)
                 + merge(sum, L, M, R, lower, upper);
     }
 
@@ -42,12 +41,12 @@ public class Code01_CountOfRangeSum {
         int ans = 0;
         int windowL = L;
         int windowR = L;
+        // nums = [-2,5,-1], lower = -2, upper = 2
+        // sum =  [-2,3,2], lower = -2, upper = 2
         // [windowL, windowR)在同一个merge中不回退
         for (int i = M + 1; i <= R; i++) {
             // 核心思路：已知preSum[i]和[lower,upper]，可以推算出preSum[0..i-1]有多少在[lower-preSum[i],upper-preSum[i]]
-            // -upper是min
             long min = preSum[i] - upper;
-            // -lower是max
             long max = preSum[i] - lower;
             // 窗口不回退，O(n)
             while (windowR <= M && preSum[windowR] <= max) {
