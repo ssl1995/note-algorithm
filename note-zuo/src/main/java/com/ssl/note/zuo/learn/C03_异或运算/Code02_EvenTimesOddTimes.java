@@ -19,8 +19,8 @@ public class Code02_EvenTimesOddTimes {
     public static void printOddTimesNum2(int[] arr) {
         // 1.干掉所有偶数，得到eor=a^b
         int eor = 0;
-        for (int i = 0; i < arr.length; i++) {
-            eor ^= arr[i];
+        for (int num : arr) {
+            eor ^= num;
         }
         // 校验：因为a和b不相同，所以a^b !=0,如果等于0就返回
         if (eor == 0) {
@@ -41,6 +41,7 @@ public class Code02_EvenTimesOddTimes {
             //  arr[1] =  111100011110000
             // rightOne=  000000000010000
             if ((arr[i] & rightOne) != 0) {
+                // a和b都是奇数次，异或抵消掉重复的数，最后剩下的就是a
                 a ^= arr[i];
             }
         }
