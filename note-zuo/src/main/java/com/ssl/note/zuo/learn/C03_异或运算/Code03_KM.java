@@ -2,22 +2,22 @@ package com.ssl.note.zuo.learn.C03_异或运算;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 
 public class Code03_KM {
 
     // map:存每一个二进制位出现的元素次数
-    public static HashMap<Integer, Integer> map = new HashMap<>();
+    public static Map<Integer, Integer> map = new HashMap<>();
 
     /**
-     * 请保证arr中，只有一种数出现了K次，其他数都出现了M次
-     * 一个数组中有一种数出现K次，其他数都出现了M次，
+     * 条件：arr中，只有一种数出现了K次，其他数都出现了M次
      * M > 1,  K < M
-     * 找到，出现了K次的数，
+     * 问题：找到出现了K次的数
      */
     public static int onlyKTimes(int[] arr, int k, int m) {
         // 1.初始化map，获取32位二进制1出现的位置
         if (map.size() == 0) {
-            mapCreater(map);
+            mapCreator(map);
         }
         // 2.统计每个二进制位出现的总次数
         int[] t = new int[32];
@@ -57,16 +57,16 @@ public class Code03_KM {
         return ans;
     }
 
-    public static void mapCreater(HashMap<Integer, Integer> map) {
-        // 初始胡为2^0=1
-        int value = 1;
+    public static void mapCreator(Map<Integer, Integer> map) {
+        // 初始化为2^0=1
+        int key = 1;
         for (int i = 0; i < 32; i++) {
-            // 1 0
-            // 2 1
-            // 4 2
+            // 2^0 (1) 0
+            // 2^1 (2) 1
+            // 2^2 (4) 2
             // ...
-            map.put(value, i);
-            value <<= 1;
+            map.put(key, i);
+            key <<= 1;
         }
     }
 
