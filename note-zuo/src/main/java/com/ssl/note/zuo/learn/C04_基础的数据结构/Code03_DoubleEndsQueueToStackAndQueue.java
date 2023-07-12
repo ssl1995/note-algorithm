@@ -68,9 +68,12 @@ public class Code03_DoubleEndsQueueToStackAndQueue {
             deque = new LinkedList<>();
         }
 
+        // 队列实现栈，用一个队列，push辛苦一下
         public void push(int x) {
+            // 由于队列的特性，先记录一下历史队列长度
             int n = deque.size();
             deque.offer(x);
+            // 历史队列重新插入队尾，保证栈的先进后出
             while (n > 0) {
                 deque.offer(deque.poll());
                 n--;
