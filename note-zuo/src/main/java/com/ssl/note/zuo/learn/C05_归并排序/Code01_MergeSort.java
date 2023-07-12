@@ -16,10 +16,12 @@ public class Code01_MergeSort {
         process(arr, 0, arr.length - 1);
     }
 
-    // 请把arr[L..R]排有序
-    // l...r N
-    // T(N) = 2 * T(N / 2) + O(N)
-    // O(N * logN)
+    /**
+     * 如果 log(b,a) < d，复杂度为O(N^d)
+     * 如果 log(b,a) > d，复杂度为O(N^log(b,a))
+     * 如果 log(b,a) == d，复杂度为O(N^d * log(b,a) )
+     * 归并排序时间复杂度：O(N * logN)
+     */
     public static void process(int[] arr, int L, int R) {
         if (L == R) { // base case
             return;
