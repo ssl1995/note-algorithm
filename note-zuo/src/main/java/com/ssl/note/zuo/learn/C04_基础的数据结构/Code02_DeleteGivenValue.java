@@ -1,38 +1,40 @@
 package com.ssl.note.zuo.learn.C04_基础的数据结构;
 
+import com.ssl.note.zuo.utils.ListNode;
+
 public class Code02_DeleteGivenValue {
 
-    public static class Node {
-        public int value;
-        public Node next;
-
-        public Node(int data) {
-            this.value = data;
-        }
-    }
-
     /**
-     * 单链表：删除给定的值
+     * 单链表：删除给定的值 = LC:剑指Offer18 删除链表的节点
+     * 返回：删除节点后的头结点
      */
-    public static Node removeValue(Node head, int num) {
-        // 1.head来到第一个不需要删的位置，作为返回值=防止删除的是第一个节点
-        while (head != null) {
-            if (head.value != num) {
-                break;
-            }
-            head = head.next;
+    public ListNode deleteNode(ListNode head, int val) {
+        if (head == null) {
+            return null;
         }
-        // 2.双指针遍历
-        // 1 ) head == null
-        // 2 ) head != null
-        Node pre = head;
-        Node cur = head;
+        if (head.val == val) {
+            return head.next;
+        }
+        ListNode pre = head;
+        ListNode cur = head;
         while (cur != null) {
-            if (cur.value == num) {
-                pre.next = cur.next;
-            } else {
+            // v1.0: 冗余写法
+//            if (cur.val != val) {
+//                pre = cur;
+//                cur = cur.next;
+//                continue;
+//            }
+//            pre.next = cur.next;
+//            cur = cur.next;
+
+            // v2.0: 优化写法
+            if (cur.val != val) {
                 pre = cur;
+            } else {
+                pre.next = cur.next;
             }
+            // 无论是否删除节点，cur只能到next
+            // 不能到达next.next，因为防止空指针
             cur = cur.next;
         }
         return head;
