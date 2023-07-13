@@ -28,34 +28,32 @@ public class Code04_BiggerThanRightTwice {
         return process(arr, l, mid) + process(arr, mid + 1, r) + merge(arr, l, mid, r);
     }
 
-    public static int merge(int[] arr, int L, int m, int r) {
+    public static int merge(int[] arr, int L, int M, int R) {
         // 思想：归并排序中的merge前，做一个数据处理，得到num后的有多少个数*2<num
         // 左组：[L....M]   右组：[M+1....R]
         int ans = 0;
-        // 目前囊括进来的数，是从[M+1, windowR)
-        int windowR = m + 1;
+        int windowR = M + 1;
         // 遍历左组的每个数
-        for (int i = L; i <= m; i++) {
-            // 统计右边
-            while (windowR <= r && arr[i] > (arr[windowR] * 2)) {
+        for (int i = L; i <= M; i++) {
+            // 统计右边,windowR不回退的原因 = arr[i] > (arr[windowR] * 2), arr[i后面的位置]> (arr[windowR] * 2)
+            while (windowR <= R && arr[i] > (arr[windowR] * 2)) {
                 windowR++;
             }
-            // windowR是右边界开区间，所以是-1
             // (m+1,windowR-1)的长度 =windowR-1-(m+1)+1 = windowR-m-1
-            ans += windowR - m - 1;
+            ans += windowR - M - 1;
         }
         // 归并排序
-        int[] help = new int[r - L + 1];
+        int[] help = new int[R - L + 1];
         int i = 0;
         int p1 = L;
-        int p2 = m + 1;
-        while (p1 <= m && p2 <= r) {
+        int p2 = M + 1;
+        while (p1 <= M && p2 <= R) {
             help[i++] = arr[p1] <= arr[p2] ? arr[p1++] : arr[p2++];
         }
-        while (p1 <= m) {
+        while (p1 <= M) {
             help[i++] = arr[p1++];
         }
-        while (p2 <= r) {
+        while (p2 <= R) {
             help[i++] = arr[p2++];
         }
         for (i = 0; i < help.length; i++) {
