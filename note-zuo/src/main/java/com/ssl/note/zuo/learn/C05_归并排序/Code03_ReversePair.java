@@ -27,34 +27,35 @@ public class Code03_ReversePair {
         }
         // l < r
         int mid = l + ((r - l) >> 1);
-        return process(arr, l, mid) + process(arr, mid + 1, r) + merge(arr, l, mid, r);
+        // 牛客需要 % 1000000007
+        return (process(arr, l, mid) + process(arr, mid + 1, r) + merge(arr, l, mid, r)) % 1000000007;
     }
 
-    public static int merge(int[] arr, int L, int m, int r) {
-        int[] help = new int[r - L + 1];
-        // 逆序对：从后往前遍历
-        int i = help.length - 1;
-        int p1 = m;
-        int p2 = r;
+    public static int merge(int[] arr, int L, int M, int R) {
+        int[] help = new int[R - L + 1];
+        int i = 0;
+        int p1 = L;
+        int p2 = M + 1;
 
         int res = 0;
-        while (p1 >= L && p2 > m) {
-            // 逆序对 = x右边有多少个数比它小
-            // [7,5,6] [4]
-            res += arr[p1] > arr[p2] ? (p2 - m) : 0;
-            help[i--] = arr[p1] > arr[p2] ? arr[p1--] : arr[p2--];
+        while (p1 <= M && p2 <= R) {
+            // 逆序对
+            // [3,4] [1,2]
+            res += arr[p1] > arr[p2] ? (M - p1 + 1) : 0;
+            help[i++] = arr[p1] > arr[p2] ? arr[p2++] : arr[p1++];
         }
 
-        while (p1 >= L) {
-            help[i--] = arr[p1--];
+        while (p1 <= M) {
+            help[i++] = arr[p1++];
         }
-        while (p2 > m) {
-            help[i--] = arr[p2--];
+        while (p2 <= R) {
+            help[i++] = arr[p2++];
         }
         for (i = 0; i < help.length; i++) {
             arr[L + i] = help[i];
         }
-        return res;
+        // 牛客需要 % 1000000007
+        return res % 1000000007;
     }
 
     // for test
