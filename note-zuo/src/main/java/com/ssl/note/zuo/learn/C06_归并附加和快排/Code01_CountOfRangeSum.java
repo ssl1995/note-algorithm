@@ -17,7 +17,10 @@ public class Code01_CountOfRangeSum {
         if (nums == null || nums.length == 0) {
             return 0;
         }
-        // 前缀和数组：便于获取arr[i,j]的累加和
+        // 为什么想到用前缀和数组：便于获取arr[i,j]的累加和
+        // 1.如果每次都是暴力累加arr[i,j]位置的和，太慢了
+        // 2.可以提前生成前缀和数组，sum[i]表示arr[0,i]的累加和
+        // 3.求arr[i,j]的累加和=sum[j]-sum[i-1]
         // nums= [-2,5,-1]
         // sum = [-2,3,2]
         long[] sum = new long[nums.length];
@@ -33,26 +36,26 @@ public class Code01_CountOfRangeSum {
             return sum[L] >= lower && sum[L] <= upper ? 1 : 0;
         }
         int M = L + ((R - L) >> 1);
-        return process(sum, L, M, lower, upper) + process(sum, M + 1, R, lower, upper)
-                + merge(sum, L, M, R, lower, upper);
+        return process(sum, L, M, lower, upper) + process(sum, M + 1, R, lower, upper) + merge(sum, L, M, R, lower, upper);
     }
 
-    public static int merge(long[] preSum, int L, int M, int R, int lower, int upper) {
+    public static int merge(long[] sum, int L, int M, int R, int lower, int upper) {
         int ans = 0;
         int windowL = L;
         int windowR = L;
-        // nums = [-2,5,-1], lower = -2, upper = 2
         // sum =  [-2,3,2], lower = -2, upper = 2
-        // [windowL, windowR)在同一个merge中不回退
+        // sum[i]= 2, [min,max] = [-4,0]
         for (int i = M + 1; i <= R; i++) {
-            // 核心思路：已知preSum[i]和[lower,upper]，可以推算出preSum[0..i-1]有多少在[lower-preSum[i],upper-preSum[i]]
-            long min = preSum[i] - upper;
-            long max = preSum[i] - lower;
-            // 窗口不回退，O(n)
-            while (windowR <= M && preSum[windowR] <= max) {
+            // 核心思路：已知sum[i]和[lower,upper]
+            // = 以arr[i]结尾的所有子数组中，有多少个子数组的累加和在[sum[i]-upper,sum[i]-lower]范围上
+            long min = sum[i] - upper;
+            long max = sum[i] - lower;
+            // 因为sum[i]在sum[M+1,R]中是递增有序，-upper和-lower也是递增有序
+            // 推出wL和wR也是递增的 = 窗口不回退，降低了时间复杂度
+            while (windowR <= M && sum[windowR] <= max) {
                 windowR++;
             }
-            while (windowL <= M && preSum[windowL] < min) {
+            while (windowL <= M && sum[windowL] < min) {
                 windowL++;
             }
             ans += Math.max(windowR - windowL, 0);
@@ -64,16 +67,16 @@ public class Code01_CountOfRangeSum {
         int p1 = L;
         int p2 = M + 1;
         while (p1 <= M && p2 <= R) {
-            help[i++] = preSum[p1] <= preSum[p2] ? preSum[p1++] : preSum[p2++];
+            help[i++] = sum[p1] <= sum[p2] ? sum[p1++] : sum[p2++];
         }
         while (p1 <= M) {
-            help[i++] = preSum[p1++];
+            help[i++] = sum[p1++];
         }
         while (p2 <= R) {
-            help[i++] = preSum[p2++];
+            help[i++] = sum[p2++];
         }
         for (i = 0; i < help.length; i++) {
-            preSum[L + i] = help[i];
+            sum[L + i] = help[i];
         }
         return ans;
     }

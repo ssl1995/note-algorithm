@@ -4,49 +4,74 @@ import java.util.ArrayList;
 
 public class Solution {
 
-    public int InversePairs(int[] arr) {
-        if (arr == null || arr.length < 2) {
+    public int countRangeSum(int[] nums, int lower, int upper) {
+        if (nums == null || nums.length == 0) {
             return 0;
         }
-        return process(arr, 0, arr.length - 1);
-    }
-
-    // arr[L..R]既要排好序，也要求逆序对数量返回
-    // 所有merge时，产生的逆序对数量，累加，返回
-    // 左 排序 merge并产生逆序对数量
-    // 右 排序 merge并产生逆序对数量
-    public static int process(int[] arr, int l, int r) {
-        if (l == r) {
-            return 0;
+        long[] sum = new long[nums.length];
+        sum[0] = nums[0];
+        for (int i = 1; i < sum.length; i++) {
+            sum[i] = nums[i] + sum[i - 1];
         }
-        // l < r
-        int mid = l + ((r - l) >> 1);
-        return (process(arr, l, mid) + process(arr, mid + 1, r) + merge(arr, l, mid, r)) % 1000000007;
+        return process(sum, 0, sum.length - 1, lower, upper);
     }
 
-    public static int merge(int[] arr, int L, int M, int R) {
-        int[] help = new int[R - L + 1];
-        int i = 0;
+    private int process(long[] sum, int L, int R, int lower, int upper) {
+        if (L == R) {
+            return sum[L] >= lower && sum[R] <= upper ? 1 : 0;
+        }
+        int M = L + ((R - L) >> 1);
+        return process(sum, L, M, lower, upper) + process(sum, M + 1, R, lower, upper) + merge(sum, L, M, R, lower, upper);
+    }
+
+    private int merge(long[] sum, int L, int M, int R, int lower, int upper) {
+        int res = 0;
+        int windowL = L;
+        int windowR = L;
+        for (int i = M + 1; i <= R; i++) {
+            long min = sum[i] - upper;
+            long max = sum[i] - lower;
+
+            while (windowR <= M && sum[windowR] <= max) {
+                windowR++;
+            }
+
+            while (windowL <= M && sum[windowL] < min) {
+                windowL++;
+            }
+
+            res += Math.max(0, windowR - windowL);
+        }
+
+        long[] help = new long[R - L + 1];
+
         int p1 = L;
         int p2 = M + 1;
-
-        int res = 0;
+        int i = 0;
         while (p1 <= M && p2 <= R) {
-            // 逆序对
-            // [3,4] [1,2]
-            res += arr[p1] > arr[p2] ? (M - p1 + 1) : 0;
-            help[i++] = arr[p1] > arr[p2] ? arr[p2++] : arr[p1++];
+            help[i++] = sum[p1] <= sum[p2] ? sum[p1++] : sum[p2++];
         }
 
         while (p1 <= M) {
-            help[i++] = arr[p1++];
+            help[i++] = sum[p1++];
         }
+
         while (p2 <= R) {
-            help[i++] = arr[p2++];
+            help[i++] = sum[p2++];
         }
-        for (i = 0; i < help.length; i++) {
-            arr[L + i] = help[i];
-        }
-        return res % 1000000007;
+
+        System.arraycopy(help, 0, sum, L, help.length);
+//        for (i = 0; i < help.length; i++) {
+//            sum[L + i] = help[i];
+//        }
+        return res;
+    }
+
+
+    public static void main(String[] args) {
+        int[] num = {-2, 5, -1};
+        Solution solution = new Solution();
+        int i = solution.countRangeSum(num, -2, 2);
+        System.out.println(i);
     }
 }

@@ -1,9 +1,11 @@
 package com.ssl.note.zuo.learn.C06_归并附加和快排;
 
+import java.util.Arrays;
+
 public class Code02_PartitionAndQuickSort {
 
     /**
-     * 荷兰国旗问题1: <=arr[R]放左边，>arr[R]放右边,返回>区域第一个数坐标
+     * 荷兰国旗问题1: <=arr[R]放左边，>arr[R]放右边
      */
     public static int netherlandsFlag1(int[] arr, int L, int R) {
         if (L > R) {
@@ -14,14 +16,12 @@ public class Code02_PartitionAndQuickSort {
         }
         int less = L - 1;
         int index = L;
-        // 将<arr[R]放左边，=放中间，>放右边
         while (index < R) {
             if (arr[index] <= arr[R]) {
                 swap(arr, index, ++less);
             }
             index++;
         }
-        // 将arr[R]放回>区域第一个数
         swap(arr, ++less, R);
         return less;
     }
@@ -42,14 +42,14 @@ public class Code02_PartitionAndQuickSort {
         int index = L;
         // 将<arr[R]放左边，=放中间，>放右边
         while (index < more) {
-            // =，移动遍历指针
             if (arr[index] == arr[R]) {
+                // =，移动遍历指针
                 index++;
             } else if (arr[index] < arr[R]) {
-                // <,两个指针都移动
+                // <,遍历指针移动
                 swap(arr, index++, ++less);
             } else {
-                // >时，不移动遍历指针index
+                // >时，不移动遍历指针index，因为less指针还要遍历该位置
                 swap(arr, index, --more);
             }
         }
@@ -180,24 +180,12 @@ public class Code02_PartitionAndQuickSort {
 
     // for test
     public static void main(String[] args) {
-        int testTime = 500000;
-        int maxSize = 100;
-        int maxValue = 100;
-        boolean succeed = true;
-        for (int i = 0; i < testTime; i++) {
-            int[] arr1 = generateRandomArray(maxSize, maxValue);
-            int[] arr2 = copyArray(arr1);
-            int[] arr3 = copyArray(arr1);
-            quickSort1(arr1);
-            quickSort2(arr2);
-            quickSort3(arr3);
-            if (!isEqual(arr1, arr2) || !isEqual(arr2, arr3)) {
-                succeed = false;
-                break;
-            }
-        }
-        System.out.println(succeed ? "Nice!" : "Oops!");
-
+        int[] arr = {12, 3, 4, 52, 12};
+        int L = 0;
+        int R = arr.length - 1;
+        int i = netherlandsFlag1(arr, L, R);
+        System.out.println(Arrays.toString(arr));
+        System.out.println("i=" + i);
     }
 
 }
