@@ -29,7 +29,7 @@ public class MaxHeapSort {
     private static void heapify(int[] arr, int parent, int n) {
         while (2 * parent + 1 < n) {
             int left = 2 * parent + 1;
-            if (left + 1 < n && arr[left + 1] < arr[left]) {
+            if (left + 1 < n && arr[left + 1] <= arr[left]) {
                 left++;
             }
             if (arr[parent] <= arr[left]) {
