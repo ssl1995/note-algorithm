@@ -130,8 +130,6 @@ public class BinarySystem {
         System.out.println(k >> 2);
         System.out.println(k >> 3);
         System.out.println("===k===");
-
-        printBinary2(10);
     }
 
     public static boolean returnTrue() {
