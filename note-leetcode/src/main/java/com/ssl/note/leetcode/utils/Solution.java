@@ -1,63 +1,61 @@
 package com.ssl.note.leetcode.utils;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class Solution {
-  public int longestConsecutive(int[] nums) {
+  public List<List<Integer>> threeSum(int[] nums) {
     if (nums == null || nums.length == 0) {
-      return 0;
+      return new ArrayList<>();
     }
-    Map<Integer, Integer> fathers = new LinkedHashMap<>();
-    Map<Integer, Integer> counts = new LinkedHashMap<>();
-    Set<Integer> set = new LinkedHashSet<>();
+    List<List<Integer>> res = new ArrayList<>();
+    Arrays.sort(nums);
 
-    for (int num : nums) {
-      fathers.put(num, num);
-      counts.put(num, 1);
-      set.add(num);
-    }
 
-    for (int num : nums) {
-      if (set.contains(num - 1)) {
-        union(fathers, counts, num, num - 1);
+    for (int k = 0; k < nums.length - 2; k++) {
+      if (nums[k] > 0) {
+        continue;
       }
-      if (set.contains(num + 1)) {
-        union(fathers, counts, num, num + 1);
+      if (k > 0 && nums[k] == nums[k - 1]) {
+        continue;
       }
-    }
-
-    int res = 0;
-    for (int length : counts.values()) {
-      res = Math.max(res, length);
+      int i = k + 1;
+      int j = nums.length - 1;
+      while (i < j) {
+        int sum = nums[k] + nums[i] + nums[j];
+        if (sum < 0) {
+          do {
+            i++;
+          } while (i < j && nums[i] == nums[i - 1]);
+        } else if (sum > 0) {
+          do {
+            j--;
+          } while (i < j && nums[j] == nums[j + 1]);
+        } else {
+          List<Integer> list = new ArrayList<>();
+          list.add(nums[k]);
+          list.add(nums[i]);
+          list.add(nums[j]);
+          res.add(list);
+          do {
+            i++;
+          } while (i < j && nums[i] == nums[i - 1]);
+          do {
+            j--;
+          } while (i < j && nums[j] == nums[j + 1]);
+        }
+      }
     }
 
     return res;
   }
 
-  private void union(Map<Integer, Integer> fathers, Map<Integer, Integer> counts, int n1, int n2) {
-    int f1 = findFather(fathers, n1);
-    int f2 = findFather(fathers, n2);
-    if (f1 == f2) {
-      return;
-    }
-
-    fathers.put(f1, f2);
-    counts.put(f2, counts.get(f1) + counts.get(f2));
-  }
-
-//  private int findFather(Map<Integer, Integer> fathers, int n) {
-//    Integer tempFather = fathers.get(n);
-//    if (tempFather == n) {
-//      return tempFather;
-//    }
-//    return findFather(fathers, tempFather);
-//  }
-  private int findFather(Map<Integer, Integer> fathers, int num) {
-    if (fathers.get(num) != num) {
-      // 路径压缩的作用是将当前节点直接挂载到根节点下，减少后续查找的深度
-      fathers.put(num, findFather(fathers, fathers.get(num)));
-    }
-    return fathers.get(num);
+  public static void main(String[] args) {
+    Solution solution = new Solution();
+    int[] nums = {-1, 0, 1, 2, -1, -4};
+    List<List<Integer>> res = solution.threeSum(nums);
+    System.out.println(res);
   }
 
 }

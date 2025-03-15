@@ -9,7 +9,7 @@ import java.util.List;
  * @date 2022/1/20 8:32 AM
  * @description
  */
-public class Solution {
+public class Solution2 {
 
     /**
      * 三数之和
@@ -72,7 +72,7 @@ public class Solution {
     }
 
     public static void main(String[] args) {
-        Solution solution = new Solution();
+        Solution2 solution = new Solution2();
         int[] nums = {-1, 0, 1, 2, -1, -4};
         System.out.println(solution.threeSum(nums));
     }
