@@ -1,32 +1,39 @@
 package com.ssl.note.leetcode.utils;
 
-import java.util.Arrays;
+import java.util.Deque;
+import java.util.LinkedList;
 
 public class Solution {
-  public int lengthOfLongestSubstring(String s) {
-    if (s.isEmpty()) {
-      return 0;
+  public int[] maxSlidingWindow(int[] nums, int k) {
+    if (nums == null || nums.length < k || k < 1) {
+      return new int[]{};
     }
 
-    int[] map = new int[256];
-    Arrays.fill(map, -1);
+    Deque<Integer> queue = new LinkedList<>();
+    int[] res = new int[nums.length - k + 1];
+    int index = 0;
 
-    int left = -1;
-    int maxLen = 0;
+    for (int i = 0; i < nums.length; i++) {
+      int curNum = nums[i];
 
-    char[] cs = s.toCharArray();
+      while (!queue.isEmpty() && curNum >= nums[queue.peekLast()]) {
+        queue.pollLast();
+      }
 
-    for (int i = 0; i < cs.length; i++) {
-      char c = cs[i];
+      queue.offerLast(i);
 
-      left = Math.max(left, map[c]);
+      int leftBound = i - k;
+      if (queue.peekFirst() <= leftBound) {
+        queue.pollFirst();
+      }
 
-      maxLen = Math.max(maxLen, i - left);
-
-      map[c] = i;
+      if (i >= k - 1) {
+        res[index++] = nums[queue.peekFirst()];
+      }
     }
 
-    return maxLen;
+    return res;
+
   }
 
   public static void main(String[] args) {
