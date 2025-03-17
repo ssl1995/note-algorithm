@@ -3,35 +3,31 @@ package com.ssl.note.leetcode.utils;
 import java.util.*;
 
 public class Solution {
-  public int[] maxSlidingWindow(int[] nums, int k) {
-    if (nums == null || nums.length < k || k < 1) {
-      return new int[]{};
+  public int maxSubArray(int[] nums) {
+    if (nums.length == 0) {
+      return 0;
+    }
+    if (nums.length == 1) {
+      return nums[0];
     }
 
-    Deque<Integer> queue = new LinkedList<>();
-    int[] res = new int[nums.length - k + 1];
-    int index = 0;
+    int pre = 0;
+    int max = Integer.MIN_VALUE;
 
-    for (int i = 0; i < nums.length; i++) {
-      int curNum = nums[i];
-
-      while (!queue.isEmpty() && curNum >= nums[queue.peekLast()]) {
-        queue.pollLast();
+    int i = 0;
+    while (i < nums.length) {
+      if (pre < 0) {
+        pre = 0;
       }
-
-      queue.offerLast(i);
-
-      int leftBound = i - k;
-      if (queue.peekFirst() <= leftBound) {
-        queue.pollFirst();
-      }
-
-      if (i >= k - 1) {
-        res[index++] = nums[queue.peekFirst()];
-      }
+      pre += nums[i];
+      max = Math.max(max, pre);
+      i++;
     }
-
-    return res;
+    return max;
   }
 
+
+  public static void main(String[] args) {
+    Solution solution = new Solution();
+  }
 }

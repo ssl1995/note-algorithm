@@ -42,7 +42,7 @@ public class Solution {
             }
             // match=0
             if (match == 0) {
-                if ("".equals(res) || res.length() > right - left + 1) {
+                if (res.isEmpty() || res.length() > right - left + 1) {
                     res = s.substring(left, right + 1);
                 }
             }
