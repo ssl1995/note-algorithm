@@ -1,7 +1,6 @@
 package com.ssl.note.leetcode.utils;
 
-import java.util.Deque;
-import java.util.LinkedList;
+import java.util.*;
 
 public class Solution {
   public int[] maxSlidingWindow(int[] nums, int k) {
@@ -33,12 +32,6 @@ public class Solution {
     }
 
     return res;
-
-  }
-
-  public static void main(String[] args) {
-    Solution solution = new Solution();
-
   }
 
 }

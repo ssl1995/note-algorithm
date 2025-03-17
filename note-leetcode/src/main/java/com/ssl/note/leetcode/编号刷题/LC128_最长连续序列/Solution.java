@@ -64,6 +64,10 @@ public class Solution {
     }
   }
 
+  /**
+   * 合并阶段，理论上每次 union 操作的时间复杂度接近 O(1)（由于路径压缩），但最坏情况下可能达到 O(log n)。
+   * 不能用递归，否则会超时
+   */
   private int findFather(Map<Integer, Integer> fathers, int num) {
     if (fathers.get(num) != num) {
       // 路径压缩的作用是将当前节点直接挂载到根节点下，减少后续查找的深度
@@ -72,15 +76,6 @@ public class Solution {
     }
     return fathers.get(num);
   }
-
-  //  private int findFather(Map<Integer, Integer> fathers, int n) {
-//    Integer tempFather = fathers.get(n);
-//    if (tempFather == n) {
-//      return tempFather;
-//    }
-//    return findFather(fathers, tempFather);
-//  }
-
 
   public static void main(String[] args) {
     Solution solution = new Solution();
