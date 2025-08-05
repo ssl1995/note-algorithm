@@ -1,5 +1,0 @@
-补充题目：
-35.搜索插入位置(opens new window)
-34.在排序数组中查找元素的第一个和最后一个位置(opens new window)
-69.x 的平方根(opens new window)
-367.有效的完全平方数(opens new window)

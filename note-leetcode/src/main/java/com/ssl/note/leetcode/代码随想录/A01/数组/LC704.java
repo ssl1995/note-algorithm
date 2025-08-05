@@ -1,4 +1,4 @@
-package com.ssl.note.leetcode.代码随想录.A02_二分查找;
+package com.ssl.note.leetcode.代码随想录.A01.数组;
 
 public class LC704 {
 
@@ -13,18 +13,17 @@ public class LC704 {
     }
     int left = 0;
     int right = nums.length - 1;
-
     while (left <= right) {
       int mid = left + (right - left) / 2;
-      if (nums[mid] == target) {
-        return mid;
-      } else if (nums[mid] < target) {
+      if (nums[mid] < target) {
         left = mid + 1;
-      } else {
+      } else if (nums[mid] > target) {
         right = mid - 1;
+      } else {
+        return mid;
       }
     }
-
     return -1;
   }
+
 }
