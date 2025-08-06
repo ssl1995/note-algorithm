@@ -2,6 +2,10 @@ package com.ssl.note.leetcode.代码随想录.A01.数组;
 
 public class LC27 {
 
+  /**
+   * 原地移除数组中不等于指定值的元素，其余元素位置往前移动不用保证顺序
+   * 返回其余元素的数量
+   */
   public int removeElement(int[] nums, int val) {
     if (nums == null || nums.length == 0) {
       return 0;
