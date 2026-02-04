@@ -1,9 +1,9 @@
-com.ssl.note.leetcode.编号刷题.LC49_字母异位词分组.Solution.groupAnagrams
-字母异位词分组这道题，
-1、怎么分析题解？面试中可以给出2道思维
-2、如果是在面试中，面试官不让用Arrays.sort排序这类API，怎么更好理解？
+代码：com.ssl.note.leetcode.编号刷题.LC128_最长连续序列.Solution.longestConsecutive
+题目：LC128_最长连续序列
+LC128_最长连续序列，有哪些解法，适合面试的普通解法和最优解有哪些？给出示例和分析
+输出一份文档
 
 回复采用中文
 文档格式：markdown，文档命名方式：月-日-时-分 文件名
 需要复制进飞书文档，注意文档不能有空行或者换行，相关流程图采用mermaid语法，尽量清晰明了
-文档保存地址：/Users/ssl/code/note-algorithm/note-leetcode/src/main/java/com/ssl/note/leetcode/编号刷题/LC49_字母异位词分组
+文档保存地址：/Users/ssl/code/note-algorithm/note-leetcode/src/main/java/com/ssl/note/leetcode/编号刷题/LC128_最长连续序列

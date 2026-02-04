@@ -7,36 +7,51 @@ import java.util.Set;
 
 
 public class Solution1 {
+
   /**
-   * 最优解：
-   * 1、只处理起点的元素，因为起点的元素可以确定连续序列的长度
-   * 2、不走并查集合并操作，每次统计该连续序列的长度
+   * 并查集的解法
    */
   public int longestConsecutive(int[] nums) {
-
-    Set<Integer> set = new HashSet<>();  // 记录所有的数值
+    Map<Integer, Integer> fathers = new HashMap<>();  // 父节点
+    Map<Integer, Integer> counts = new HashMap<>();   // 集合大小
+    Set<Integer> set = new HashSet<>();
+    // 初始化：每个数字是自己的父节点，集合大小为1
     for (int num : nums) {
-      set.add(num);    // 将数组中的值加入哈希表中
+      fathers.put(num, num);
+      counts.put(num, 1);
+      set.add(num);
     }
-
-    int maxLen = 0;
-    // 注意：这里是遍历set，不是遍历nums
-    // 因为set会去重
-    for (int num : set) {
-      // 只处理数组元素中起点位置的元素：
-      // 1、set中已经存在某个连续数的起点，跳过
-      // 2、遍历到那个数的时候，会重新计算该连续数的长度，所以从当前数开始
+    // 合并相邻元素
+    for (int num : nums) {
+      if (set.contains(num + 1)) {
+        union(fathers, counts, num, num + 1);
+      }
       if (set.contains(num - 1)) {
-        continue;
+        union(fathers, counts, num, num - 1);
       }
-      int curLen = 1;
-      while (set.contains(++num)) {
-        curLen++;
-      }
-      maxLen = Math.max(maxLen, curLen);
     }
+    // 找最大集合
+    int res = 0;
+    for (int length : counts.values()) {
+      res = Math.max(res, length);
+    }
+    return res;
+  }
 
-    return maxLen;
+  private void union(Map<Integer, Integer> fathers, Map<Integer, Integer> counts, int a, int b) {
+    int fa = findFather(fathers, a);
+    int fb = findFather(fathers, b);
+    if (fa != fb) {
+      fathers.put(fa, fb);  // fa挂到fb下
+      counts.put(fb, counts.get(fa) + counts.get(fb));  // 更新fb的集合大小
+    }
+  }
+
+  private int findFather(Map<Integer, Integer> fathers, int num) {
+    if (fathers.get(num) != num) {
+      fathers.put(num, findFather(fathers, fathers.get(num)));  // 路径压缩
+    }
+    return fathers.get(num);
   }
 
   public static void main(String[] args) {

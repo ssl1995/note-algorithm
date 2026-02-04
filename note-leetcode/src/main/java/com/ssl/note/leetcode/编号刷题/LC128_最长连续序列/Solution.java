@@ -20,61 +20,34 @@ public class Solution {
    * 解释：最长数字连续序列是 [1, 2, 3, 4]。它的长度为 4。
    */
   public int longestConsecutive(int[] nums) {
-    // father[i]:记录每个整数所在子集的父节点
-    Map<Integer, Integer> fathers = new HashMap<>();
-    // counts[i]:i结点为根结点的子集整数数量
-    Map<Integer, Integer> counts = new HashMap<>();
-
+    // 哈希解法，时间复杂度O(n)，空间复杂度O(n)
+    if (nums == null || nums.length == 0) {
+      return 0;
+    }
     Set<Integer> set = new HashSet<>();
-
-    // 初始化
     for (int num : nums) {
-      fathers.put(num, num);
-      counts.put(num, 1);
       set.add(num);
     }
-
-    // 是否包含相邻元素
-    for (int num : nums) {
-      if (set.contains(num + 1)) {
-        union(fathers, counts, num, num + 1);
-      }
+    int maxLen = 0;
+    // 不能遍历nums，因为可能有很多重复元素
+    // 直接遍历set
+    for (int num : set) {
+      // 当前数-1已经在set中，说明当前数不是起点，跳过
       if (set.contains(num - 1)) {
-        union(fathers, counts, num, num - 1);
+        continue;
       }
+
+      int curLen = 1;
+      int curNum = num;
+
+      while (set.contains(curNum + 1)) {
+        curLen++;
+        curNum++;
+      }
+      maxLen = Math.max(maxLen, curLen);
     }
 
-    int res = 0;
-    for (int length : counts.values()) {
-      res = Math.max(res, length);
-    }
-    return res;
-  }
-
-  private void union(Map<Integer, Integer> fathers, Map<Integer, Integer> counts, int num1, int num2) {
-    int f1 = findFather(fathers, num1);
-    int f2 = findFather(fathers, num2);
-    // 两个父节点不相同，就合并两个子图
-    if (f1 != f2) {
-      // f1挂着f2名下
-      fathers.put(f1, f2);
-
-      // f2名下数量更新
-      counts.put(f2, counts.get(f1) + counts.get(f2));
-    }
-  }
-
-  /**
-   * 合并阶段，理论上每次 union 操作的时间复杂度接近 O(1)（由于路径压缩），但最坏情况下可能达到 O(log n)。
-   * 不能用递归，否则会超时
-   */
-  private int findFather(Map<Integer, Integer> fathers, int num) {
-    if (fathers.get(num) != num) {
-      // 路径压缩的作用是将当前节点直接挂载到根节点下，减少后续查找的深度
-      // 不走路径压缩，case会超时，因为递归遍历树结构层级可能会很多
-      fathers.put(num, findFather(fathers, fathers.get(num)));
-    }
-    return fathers.get(num);
+    return maxLen;
   }
 
   public static void main(String[] args) {
