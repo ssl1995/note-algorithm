@@ -8,25 +8,30 @@ public class Solution {
    * 字母异位词分组
    * 输入: strs = ["eat", "tea", "tan", "ate", "nat", "bat"]
    * 输出: [["bat"],["nat","tan"],["ate","eat","tea"]]
+   *
+   * 时间和空间复杂度：O（n*k）
    */
   public List<List<String>> groupAnagrams(String[] strs) {
     if (strs == null || strs.length == 0) {
       return new ArrayList<>();
     }
     Map<String, List<String>> map = new HashMap<>();
+    for (String str : strs) {
+      char[] cs = str.toCharArray();
 
-    for (String s : strs) {
-      char[] charArray = s.toCharArray();
+      int[] count = new int[26];
+      for (char c : cs) {
+        count[c - 'a']++;
+      }
 
-      Arrays.sort(charArray);
-      String sorted = new String(charArray);
+      StringBuilder key = new StringBuilder();
+      for (int cn : count) {
+        key.append(cn).append("#");
+      }
 
-//      if (!map.containsKey(sorted)) {
-//        map.put(sorted, new ArrayList<>());
-//        continue;
-//      }
-      map.putIfAbsent(sorted,new LinkedList<>());
-      map.get(sorted).add(s);
+      String keyStr = key.toString();
+
+      map.computeIfAbsent(keyStr, k -> new ArrayList<>()).add(str);
     }
 
     return new ArrayList<>(map.values());
