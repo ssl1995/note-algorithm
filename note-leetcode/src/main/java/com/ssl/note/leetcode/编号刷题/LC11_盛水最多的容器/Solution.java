@@ -12,26 +12,20 @@ public class Solution {
    * 输出：49
    */
   public int maxArea(int[] height) {
-    if (height == null || height.length == 0) {
-      return 0;
-    }
-    int i = 0;
-    int j = height.length - 1;
-
+    int left = 0;
+    int right = height.length - 1;
     int maxArea = 0;
-    while (i < j) {
-      int curArea;
-      // 高度低的才移
-      if (height[i] < height[j]) {
-        curArea = (j - i) * height[i];
-        i++;
+    while (left <= right) {
+      // 面积 = 长 * 高
+      int temp = (right - left) * Math.min(height[left], height[right]);
+      maxArea = Math.max(maxArea, temp);
+      // 判断高度，选择矮的移动
+      if (height[left] < height[right]) {
+        left++;
       } else {
-        curArea = (j - i) * height[j];
-        j--;
+        right--;
       }
-      maxArea = Math.max(maxArea, curArea);
     }
-
     return maxArea;
   }
 
