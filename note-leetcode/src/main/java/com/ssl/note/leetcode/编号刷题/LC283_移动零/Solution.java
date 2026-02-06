@@ -15,14 +15,13 @@ public class Solution {
    * 输出: [1,3,12,0,0]
    */
   public void moveZeroes(int[] nums) {
-    // j: 记录第一个未处理非0元素的位置
-    int j = 0;
-    for (int i = 0; i < nums.length - 1; i++) {
-      // i:去找元素0的位置
-      if (nums[i] != 0) {
+    int slow = 0;
+    for (int fast = 0; fast < nums.length; fast++) {
+      if (nums[fast] == 0) {
         continue;
       }
-      swap(nums, i, j++);
+      // 非零时才交换
+      swap(nums, slow++, fast);
     }
   }
 
@@ -34,7 +33,6 @@ public class Solution {
     nums[i] = nums[j];
     nums[j] = temp;
   }
-
 
   public static void main(String[] args) {
     Solution solution = new Solution();
