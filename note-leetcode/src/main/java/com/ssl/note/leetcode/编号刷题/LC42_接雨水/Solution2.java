@@ -10,31 +10,27 @@ public class Solution2 {
    * 接雨水：会超时
    * 输入：height = [0,1,0,2,1,0,1,3,2,1,2,1]
    * 输出：6
+   * 解法二：动态规划存储每列的左右两边最大值
+   * 规避 每次遍历都找左右两边最高列的最小 + 本次列计算雨水的面积，逐步累加
    */
   public int trap(int[] height) {
 
     int water = 0;
-    // 上一个解法会超时，可以提前遍历获取i位置左右2边的高墙的位置
-    int[] leftMax = new int[height.length];
-    for (int i = 0; i < height.length; i++) {
-      if (i == 0 || i == height.length - 1) {
-        leftMax[i] = -1;
-        continue;
-      }
-      leftMax[i] = Math.max(leftMax[i - 1], height[i - 1]);
+    int n = height.length;
+    // 计算i左边最高列
+    int[] left = new int[n];
+    for (int i = 1; i <= n - 1; i++) {
+      left[i] = Math.max(left[i - 1], height[i - 1]);
     }
-
-    int[] rightMax = new int[height.length];
-    for (int i = height.length - 1; i >= 0; i--) {
-      if (i == 0 || i == height.length - 1) {
-        rightMax[i] = -1;
-        continue;
-      }
-      rightMax[i] = Math.max(rightMax[i + 1], height[i + 1]);
+    // 计算i右边最高列
+    int[] right = new int[n];
+    for (int i = n - 2; i >= 0; i--) {
+      right[i] = Math.max(right[i + 1], height[i + 1]);
     }
-
-    for (int i = 1; i < height.length - 1; i++) {
-      int min = Math.min(leftMax[i], rightMax[i]);
+    // 计算雨水：列的左右两边最高列中的最小 - 当前列高度
+    for (int i = 0; i <= n - 1; i++) {
+      int min = Math.min(left[i], right[i]);
+      // 当前列高度 < 左右两边最高列中的最小，才能接到雨水
       if (height[i] < min) {
         water += min - height[i];
       }

@@ -6,10 +6,12 @@ package com.ssl.note.leetcode.编号刷题.LC42_接雨水;
  * @description
  */
 public class Solution1 {
+
   /**
    * 接雨水：会超时
    * 输入：height = [0,1,0,2,1,0,1,3,2,1,2,1]
    * 输出：6
+   * 解法一暴力法：每次遍历都找左右两边最高列的最小 + 本次列计算雨水的面积，逐步累加
    */
   public int trap(int[] height) {
 
