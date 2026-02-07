@@ -1,15 +1,13 @@
 package com.ssl.note.leetcode.编号刷题.LC3_无重复字符的最长子串;
 
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author SongShengLin
  * @date 2022/1/18 9:19 AM
  * @description
  */
-public class Solution1 {
+public class Solution2 {
   /**
    * 无重复字符的最长子串
    * 输入: s = "abcabcbb"
@@ -23,26 +21,29 @@ public class Solution1 {
     }
     int maxLen = 0; // 最大长度
     int left = 0;// 窗口内无重复字符的左边界
-    Map<Character, Integer> map = new HashMap<>();
+
+    int[] map = new int[256];
+    Arrays.fill(map, -1);
 
     for (int i = 0; i < s.length(); i++) {
       char c = s.charAt(i);
 
-      // 当前元素上一次出现的位置：取当前字符上次出现位置和当前left的较大值
-      if (map.containsKey(c) && map.get(c) >= left) {
-        left = map.get(c) + 1;
+      // 重复字符在窗口内，left 跳跃
+      if (map[c] >= left) {
+        left = map[c] + 1;
       }
 
-      map.put(c, i);
+      // 记录字符位置
+      map[c] = i;
+      // 更新最大长度
       maxLen = Math.max(maxLen, i - left + 1);
     }
-
     return maxLen;
   }
 
   public static void main(String[] args) {
-    Solution1 solution = new Solution1();
-    String s = "abcabcbb";
+    Solution2 solution = new Solution2();
+    String s = "abba";
     System.out.println(solution.lengthOfLongestSubstring(s));
   }
 }
