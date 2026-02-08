@@ -1,12 +1,12 @@
-代码：com.ssl.note.leetcode.编号刷题.LC3_无重复字符的最长子串
-题目：LC3_无重复字符的最长子串
+代码：com.ssl.note.leetcode.编号刷题.LC438_找到字符串中所有字符异位词
+题目：LC438_找到字符串中所有字符异位词
 有哪些解法，适合面试的普通解法和最优解有哪些？
-1、每种解法包含：思路、核心公式、图解过程、代码示例、复杂度分析、优缺点
-2、理解成本高的解法，可以加上mermaid语法的流程图或其他图的语法，来进行解释说明
-输出一份文档
+1、文档标题：题目描述、解法概览（需要有思维导图，比如使用mermaid语法编写）、记忆口诀、不同解法的二级标题、面试回答模板、相关题目
+2、不同解法的二级标题:：思路、核心公式、图解过程、代码示例、复杂度分析、优缺点
+重新输出一份文档
 
 
 回复采用中文
 文档格式：markdown，文档命名方式：月-日-时-分 文件名
 需要复制进飞书文档，注意文档不能有空行或者换行，相关流程图采用mermaid语法，尽量清晰明了
-文档保存地址：D:\project\java\note-algorithm\note-leetcode\src\main\java\com\ssl\note\leetcode\编号刷题\LC3_无重复字符的最长子串
+文档保存地址：D:\project\java\note-algorithm\note-leetcode\src\main\java\com\ssl\note\leetcode\编号刷题\LC438_找到字符串中所有字符异位词
