@@ -1,5 +1,6 @@
 package com.ssl.note.leetcode.编号刷题.LC239_滑动窗口最大值;
 
+import java.util.ArrayDeque;
 import java.util.Arrays;
 import java.util.Deque;
 import java.util.LinkedList;
@@ -19,30 +20,25 @@ public class Solution {
       return new int[]{};
     }
 
-    // 双端队列队：从大到小存数组中的下标
-    Deque<Integer> queue = new LinkedList<>();
-    // 原始数组3个元素，k=1，返回3个元素 = nums.length - k +1
     int[] res = new int[nums.length - k + 1];
-    int index = 0;
+
+    Deque<Integer> deque = new ArrayDeque<>();
 
     for (int i = 0; i < nums.length; i++) {
-      int currentNum = nums[i];
-      // 队尾维护：移除比currentNum小的元素
-      while (!queue.isEmpty() && nums[queue.peekLast()] <= currentNum) {
-        queue.pollLast();
+      // 队尾元素：维持单调递减
+      while (!deque.isEmpty() && nums[deque.peekLast()] <= nums[i]) {
+        deque.pollLast();
       }
-      queue.offerLast(i);
-
-      // 队首维护：移除超出窗口范围的元素
-      int leftBound = i - k; // 优化点3：预计算窗口左边界
-      if (queue.peekFirst() <= leftBound) {
-        queue.pollFirst();
+      deque.offerLast(i);
+      // 队首元素：保持队列最大值下标，移除超出窗口范围的元素
+      if (deque.peekFirst() <= i - k) {
+        deque.pollFirst();
       }
-
       // 记录结果
-      if (i >= k - 1) {
-        res[index++] = nums[queue.peekFirst()];
+      if (i - k + 1 >= 0) {
+        res[i - k + 1] = nums[deque.peekFirst()];
       }
+
     }
     return res;
   }
