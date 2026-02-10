@@ -7,7 +7,7 @@ import java.util.Arrays;
  * @date 2022/2/22 9:12 PM
  * @description
  */
-public class Solution {
+public class Solution1 {
   /**
    * 除自身以外数组的乘积
    * 给你一个整数数组 nums，返回 数组 answer ，
@@ -21,28 +21,23 @@ public class Solution {
     }
     int n = nums.length;
     int[] res = new int[n];
-    int[] left = new int[n];
-    int[] right = new int[n];
 
-    left[0] = 1;// 因为是乘积，所以边界初始化=1
+    res[0] = 1;
     for (int i = 1; i < n; i++) {
-      left[i] = left[i - 1] * nums[i - 1];
+      res[i] = res[i - 1] * nums[i - 1];
     }
 
-    right[n - 1] = 1;
+    int right = 1;
     for (int i = n - 2; i >= 0; i--) {
-      right[i] = right[i + 1] * nums[i + 1];
-    }
-
-    for (int i = 0; i < n; i++) {
-      res[i] = left[i] * right[i];
+      right *= nums[i + 1];
+      res[i] *= right;
     }
 
     return res;
   }
 
   public static void main(String[] args) {
-    Solution solution = new Solution();
+    Solution1 solution = new Solution1();
     int[] nums = {1, 2, 3, 4};
     System.out.println(Arrays.toString(solution.productExceptSelf(nums)));
   }

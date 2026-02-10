@@ -1,0 +1,32 @@
+---
+alwaysApply: true
+---
+1. 实体类转换用mapstruct工具库实现
+2. 禁止循环内进行IO操作，应优化为循环外预查询构建map，循环内用map中取值
+3. 批量IO操作，强制优化为用Partitions工具类分批处理
+4. 强制复用工具类，例如commons-lang3、commons-collection4、guava等工具包，以及项目util包内的工具类，或类名称以Util或Utils结尾的工具类。如果工具类不能满足需求，应在工具类中维护新方法实现而不是自己实现。
+5. 强制使用Slf4j记录日志，使用时用lombok的注解@Slf4j获取log实例
+6. 分页强制用PageHelper实现，在Service层将Page转换为PageResult时，注意复用PageResult内的of方法实现转换，若无法满足需求，可以考虑在PageResult中新增方法
+7. 代码采用中文注释，日志也采用中文（专业术语或业务术语可以用英文）
+8. 事务内禁止进行外部IO调用，例如HTTP请求、文件读写等
+9. 事务范围应越小越好，如果需要在类内部调用的方法上加事务，用TransactionTemplate编程式事务来实现，（TransactionTemplate已实例化为Spring Bean，可以直接注入）。
+10. 金额类型：强制使用BigDecimal，金额计算推荐用BigDecimalHelper
+11. 日期时间类：禁止使用默认时区，强制显式使用TimeZoneHolder获取时区处理时间。Instant.now()/Instant.ofEpochMilli()方法除外，因为Instant表示的是时间戳，不涉及时区问题。
+12. 禁止使用 Map 在Service、Dao、Mapper层传递业务数据
+13. 禁止将带状态的MVC或Http协议层的类从Controller层传入Service层，例如：HttpServletResponse,HttpServletRequest,MultipartFile,etc.
+14. Import：禁止通配符导入（*）
+15. 单个方法行数：单个方法行数禁止超过50行，若超过50行，必须进行方法拆分
+16. 类注释：类注释必须完整，包含类描述、作者、日期等信息
+17. 方法注释：公共方法必须包含方法描述、参数说明、返回值说明等信息
+18. 变量命名：变量命名必须遵循驼峰命名法，且命名应具有描述性，避免使用单字符变量名
+19. 须严格遵循代码分层调用层级，只有Dao层能够直接访问Mapper层；允许Service层互相调用。
+20. 代码应尽可能复用，减少重复逻辑。例如：相同业务中的不同分支拥有类似的处理过程，则将类似处理过程抽象为方法复用，代码示例：com.yqg.crane.core.service.impl.RoleServiceImpl.convert(java.lang.Long)
+21. 索引命名遵守规范：唯一索引用 uindex__xxx，普通索引用 index__xxx
+22. 方法、函数的实现应尽可能无状态
+23. 优先使用java8的Stream和lambda特性简化代码
+24. 变量的作用域在不影响逻辑的前提下越小越好
+25. 代码遵循DRY（Don't Repeat Yourself）和KISS（Keep It Simple and Stupid）原则
+26. 优先组合而非继承
+27. 代码遵循：单一职责原则、里氏替换原则、依赖倒置原则、接口隔离原则、最少知识原则、开放闭合原则
+28. 修改代码或扫描历史代码时，无关代码包括缩进格式等不要发生任何修改，保持原样，方便CR代码
+29. 生成任何Java代码时，不要生成Javadoc注释，包括但不限于：@param、@return、@throws、@author、@since等
