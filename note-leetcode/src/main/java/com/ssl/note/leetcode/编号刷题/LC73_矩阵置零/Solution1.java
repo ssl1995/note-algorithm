@@ -11,22 +11,52 @@ public class Solution1 {
     int m = matrix.length;
     int n = matrix[0].length;
 
-    boolean[] row = new boolean[m];
-    boolean[] col = new boolean[n];
+    boolean rowZero = false;
+    boolean colZero = false;
+
+    // 1、首行首列是否有空
+    for (int i = 0; i < n; i++) {
+      // 首行
+      if (matrix[0][i] == 0) {
+        rowZero = true;
+        break;
+      }
+    }
     for (int i = 0; i < m; i++) {
-      for (int j = 0; j < n; j++) {
+      // 首列
+      if (matrix[i][0] == 0) {
+        colZero = true;
+        break;
+      }
+    }
+
+    // 2、从[1,1]开始扫描是否有0，用首行首列标记
+    for (int i = 1; i < m; i++) {
+      for (int j = 1; j < n; j++) {
         if (matrix[i][j] == 0) {
-          row[i] = true;
-          col[j] = true;
+          matrix[i][0] = 0;
+          matrix[0][j] = 0;
         }
       }
     }
 
-    for (int i = 0; i < m; i++) {
-      for (int j = 0; j < n; j++) {
-        if (row[i] || col[j]) {
+    // 3、从[1,1]开始扫描，重置为0,不能破坏首行首列的标记信息
+    for (int i = 1; i < m; i++) {
+      for (int j = 1; j < n; j++) {
+        if (matrix[i][0] == 0 || matrix[0][j] == 0) {
           matrix[i][j] = 0;
         }
+      }
+    }
+    // 4、首行首列是否重置为0
+    if (rowZero) {
+      for (int i = 0; i < n; i++) {
+        matrix[0][i] = 0;
+      }
+    }
+    if (colZero) {
+      for (int i = 0; i < m; i++) {
+        matrix[i][0] = 0;
       }
     }
   }
