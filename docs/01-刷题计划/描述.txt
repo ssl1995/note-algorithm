@@ -1,5 +1,5 @@
-代码：com.ssl.note.leetcode.编号刷题.LC1_两数之和
-题目：LC1_两数之和
+代码：com.ssl.note.leetcode.编号刷题.LC240_搜索二维矩阵II
+题目：LC240_搜索二维矩阵II
 有哪些解法，适合面试的普通解法和最优解有哪些？
 1、文档标题：题目描述、解法概览（需要有思维导图，比如使用mermaid语法编写）、记忆口诀、不同解法的二级标题、面试回答模板、相关题目
 2、不同解法的二级标题:：思路、核心公式、图解过程、代码示例、复杂度分析、优缺点
@@ -8,4 +8,4 @@
 回复采用中文
 文档格式：markdown，文档命名方式：月-日-时-分 文件名
 需要复制进飞书文档，注意文档不能有空行或者换行，相关流程图采用mermaid语法，尽量清晰明了
-文档保存地址：/Users/ssl/code/note-algorithm/note-leetcode/src/main/java/com/ssl/note/leetcode/编号刷题/LC1_两数之和
+文档保存地址：/Users/ssl/code/note-algorithm/note-leetcode/src/main/java/com/ssl/note/leetcode/编号刷题/LC240_搜索二维矩阵II
