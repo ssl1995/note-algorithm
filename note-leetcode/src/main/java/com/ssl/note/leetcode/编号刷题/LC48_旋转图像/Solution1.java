@@ -26,6 +26,15 @@ public class Solution1 {
     }
   }
 
+  /**
+   * 1 2 3    7 4 1
+   * 4 5 6 -> 8 5 2
+   * 7 8 9    9 6 3
+   * 四个点：
+   * A(tR,tC) D(tR,dC)
+   * B(dR,tC) C(dR,dC)
+   * 逆时针：temp=A → A=B → B=C → C=D → D=temp
+   */
   private void rotateEdge(int[][] matrix, int tR, int tC, int dR, int dC) {
     int times = dR - tR;
     for (int i = 0; i < times; i++) {
