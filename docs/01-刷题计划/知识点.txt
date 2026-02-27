@@ -1,4 +1,4 @@
-结合LC560，介绍下什么是前缀和：
+结合LC148，介绍下什么是归并排序：
 1.是什么
 2.解决什么问题
 3.核心思想
@@ -11,4 +11,4 @@
 回复采用中文
 文档格式：markdown，文档命名方式：月-日-时-分 文件名
 需要复制进飞书文档，注意文档不能有空行或者换行，相关流程图采用mermaid语法，尽量清晰明了
-文档保存地址：/Users/ssl/code/note-algorithm/note-leetcode/src/main/java/com/ssl/note/leetcode/编号刷题/LC560_和为k的子数组
+文档保存地址:D:\projects\java\note-algorithm\note-leetcode\src\main\java\com\ssl\note\leetcode\编号刷题\LC148_排序链表
