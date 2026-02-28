@@ -1,143 +1,120 @@
 package com.ssl.note.leetcode.编号刷题.LC146_LRU缓存;
 
 import java.util.HashMap;
+import java.util.Map;
 
-/**
- * @Author: SongShengLin
- * @Date: 2022/06/16 10:17 AM
- * @Describe:
- */
-public class LRUCache {
 
-    static class Node {
-        int key;
-        int value;
+class LRUCache {
 
-        Node pre;
-        Node next;
+  /**
+   * 手写一个LRU最近最少使用缓存策略
+   * 提供：get(key)，put(key, value)
+   */
+  public LRUCache(int capacity) {
+    head = new Node(-1, -1);
+    tail = new Node(-1, -1);
+    head.next = tail;
+    tail.pre = head;
 
-        public Node(int key, int value) {
-            this.key = key;
-            this.value = value;
-        }
+    map = new HashMap<>();
+
+    size = capacity;
+  }
+
+  public int get(int key) {
+    if (!map.containsKey(key)) {
+      return -1;
     }
+    Node node = map.get(key);
+    moveToTail(node);
+    return node.value;
+  }
 
-    /**
-     * size：链表初试化长度
-     * 实际长度：mao.size
-     */
-    private int size;
-    private Node head;
-    private Node tail;
-    private HashMap<Integer, Node> map;
-
-    /**
-     * 最近最少使用：
-     * put/get都将使用过的元素放在链表末尾
-     * 于是链表头部永远都是待删除的元素
-     */
-    public LRUCache(int capacity) {
-        map = new HashMap<>();
-        size = capacity;
-        // 题目固定key和value都是正整数
-        head = new Node(-1, -1);
-        tail = new Node(-1, -1);
-        head.next = tail;
-        tail.pre = head;
+  public void put(int key, int value) {
+    // 存在元素就更新
+    if (map.containsKey(key)) {
+      Node node = map.get(key);
+      node.value = value;
+      moveToTail(node);
+      return;
     }
-
-    /**
-     * 获取元素
-     */
-    public int get(int key) {
-        if (!map.containsKey(key)) {
-            return -1;
-        }
-        Node node = map.get(key);
-        moveToTail(node);
-        return node.value;
+    // 队列满了，移除队首
+    if (size == map.size()) {
+      removeHead();
     }
+    // 新增节点
+    Node node = new Node(key, value);
+    insertToTail(node);
+    map.put(key, node);// 不能忘记插入map
+  }
 
-    /**
-     * 设置元素
-     */
-    public void put(int key, int value) {
-        // 如果map中有这个元素，就更新value
-        if (map.containsKey(key)) {
-            Node node = map.get(key);
-            node.value = value;
-            moveToTail(node);
-            return;
-        }
-        // map中没有这个元素
-        // 如果达到初始化长度，删除头部最近的数据
-        if (map.size() == size) {
-            moveHead();
-        }
-        // 链表尾部插入数据
-        Node node = new Node(key, value);
-        insertToTail(node);
-        map.put(key, node);
+  // 双向链表数据结构
+  static class Node {
+    Node pre;
+    Node next;
+
+    int key;
+    int value;
+
+    public Node(int key, int value) {
+      this.key = key;
+      this.value = value;
     }
+  }
 
+  // 整体缓存结构
+  private final int size;
+  private final Map<Integer, Node> map;
+  private final Node head;
+  private final Node tail;
 
-    /**
-     * 删除头部元素
-     */
-    private void moveHead(){
-        Node node = head.next;
-        deleteListNode(node);
-        // 删除元素，也要移除map
-        // 注意api的参数是key不是node
-        map.remove(node.key);
+  // 原子操作：删除节点
+  private void deleteNode(Node node) {
+    if (node == null) {
+      return;
     }
+    node.pre.next = node.next;
+    node.next.pre = node.pre;
+  }
 
-    private void deleteListNode(Node node) {
-        if (node == null) {
-            return;
-        }
-        node.pre.next = node.next;
-        node.next.pre = node.pre;
-        // 这个删除没有动map = 逻辑删除而已
+  // 原子操作：队尾插入节点
+  private void insertToTail(Node node) {
+    if (node == null) {
+      return;
     }
+    tail.pre.next = node;
+    node.pre = tail.pre;
+    node.next = tail;
+    tail.pre = node;
+  }
 
-    /**
-     * get、put使用过的元素都放到末尾
-     */
-    private void moveToTail(Node node) {
-        if (node == null) {
-            return;
-        }
-        // 删除原有位置的元素
-        deleteListNode(node);
-        // 插入到末尾
-        insertToTail(node);
+  // 通用操作：移动到队尾
+  private void moveToTail(Node node) {
+    if (node == null) {
+      return;
     }
+    deleteNode(node);
+    insertToTail(node);
+  }
 
+  // 通用操作：移除队首
+  private void removeHead() {
+    Node removeHead = head.next;
+    deleteNode(removeHead);
+    map.remove(removeHead.key);
+  }
 
-
-    private void insertToTail(Node node) {
-        if (node == null) {
-            return;
-        }
-        tail.pre.next = node;
-        node.pre = tail.pre;
-        node.next = tail;
-        tail.pre = node;
-    }
-
-    public static void main(String[] args) {
-        LRUCache lRUCache = new LRUCache(2);
-        lRUCache.put(1, 1);// 缓存是 {1=1}
-        lRUCache.put(2, 2); // 缓存是 {1=1, 2=2}
-        System.out.println(lRUCache.get(1));    // 返回 1
-        lRUCache.put(3, 3); // 该操作会使得关键字 2 作废，缓存是 {1=1, 3=3}
-        System.out.println(lRUCache.get(2));    // 返回 -1 (未找到)
-        lRUCache.put(4, 4); // 该操作会使得关键字 1 作废，缓存是 {4=4, 3=3}
-        System.out.println(lRUCache.get(1));    // 返回 -1 (未找到)
-        System.out.println(lRUCache.get(3));    // 返回 3
-        System.out.println(lRUCache.get(4));    // 返回 4
-    }
-
+  public static void main(String[] args) {
+    LRUCache lRUCache = new LRUCache(2);
+    lRUCache.put(1, 1);// 缓存是 {1=1}
+    lRUCache.put(2, 2); // 缓存是 {1=1, 2=2}
+    System.out.println(lRUCache.get(1));    // 返回 1
+    lRUCache.put(3, 3); // 该操作会使得关键字 2 作废，缓存是 {1=1, 3=3}
+    System.out.println(lRUCache.get(2));    // 返回 -1 (未找到)
+    lRUCache.put(4, 4); // 该操作会使得关键字 1 作废，缓存是 {4=4, 3=3}
+    System.out.println(lRUCache.get(1));    // 返回 -1 (未找到)
+    System.out.println(lRUCache.get(3));    // 返回 3
+    System.out.println(lRUCache.get(4));    // 返回 4
+  }
 
 }
