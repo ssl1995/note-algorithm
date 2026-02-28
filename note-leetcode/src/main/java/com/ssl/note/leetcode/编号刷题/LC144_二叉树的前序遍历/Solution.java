@@ -6,24 +6,29 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Solution {
-    public List<Integer> preorderTraversal(TreeNode root) {
-        if (root == null) {
-            return new LinkedList<>();
-        }
-        LinkedList<TreeNode> stack = new LinkedList<>();
-        List<Integer> res = new LinkedList<>();
-        stack.push(root);
-        while (!stack.isEmpty()) {
-            root = stack.pop();
-            res.add(root.val);
-            // 先序:先压右孩子,再压左孩子
-            if (root.right != null) {
-                stack.push(root.right);
-            }
-            if (root.left != null) {
-                stack.push(root.left);
-            }
-        }
-        return res;
+  /**
+   * 二叉树前序遍历
+   */
+  public List<Integer> preorderTraversal(TreeNode root) {
+    if (root == null) {
+      return new LinkedList<>();
     }
+    LinkedList<TreeNode> stack = new LinkedList<>();
+    List<Integer> res = new LinkedList<>();
+    stack.push(root);
+    while (!stack.isEmpty()) {
+      // 弹出
+      root = stack.pop();
+      // 加结果
+      res.add(root.val);
+      // 压右左孩子 = 栈出就是左右
+      if (root.right != null) {
+        stack.push(root.right);
+      }
+      if (root.left != null) {
+        stack.push(root.left);
+      }
+    }
+    return res;
+  }
 }
