@@ -2,26 +2,29 @@ package com.ssl.note.leetcode.编号刷题.LC145_二叉树的后序遍历;
 
 import com.ssl.note.leetcode.utils.TreeNode;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class Solution {
   /**
    * 二叉树后续遍历
+   * 双栈法
    */
   public List<Integer> postorderTraversal(TreeNode root) {
     if (root == null) {
       return new LinkedList<>();
     }
-    LinkedList<TreeNode> stack = new LinkedList<>();
-    LinkedList<TreeNode> temp = new LinkedList<>();
     List<Integer> res = new LinkedList<>();
+    // 前序遍历的栈
+    Deque<TreeNode> stack = new ArrayDeque<>();
     stack.push(root);
+    // 辅助栈
+    Deque<TreeNode> temp = new ArrayDeque<>();
+
     while (!stack.isEmpty()) {
       TreeNode node = stack.pop();
-      // 后续每次出栈,将结果进辅助栈,实现头右左倒序
+      // 辅助栈底到栈顶：根右左，出栈才是左右根
       temp.push(node);
-      // 要实现出栈是头右左,收集栈就要左右入栈
+      // 正常栈底到栈顶：根左右，出栈是根右左
       if (node.left != null) {
         stack.push(node.left);
       }
@@ -29,10 +32,11 @@ public class Solution {
         stack.push(node.right);
       }
     }
-    // 辅助栈出栈,头右左变成左右头
+
     while (!temp.isEmpty()) {
       res.add(temp.pop().val);
     }
+
     return res;
   }
 }
