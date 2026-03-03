@@ -2,7 +2,9 @@ package com.ssl.note.leetcode.编号刷题.LC199_二叉树的右视图;
 
 import com.ssl.note.leetcode.utils.TreeNode;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.List;
 
 /**
@@ -12,25 +14,40 @@ import java.util.List;
  */
 public class Solution {
 
-    /**
-     * LC199：二叉树的右视图
-     */
-    public List<Integer> rightSideView(TreeNode root) {
-        List<Integer> res = new ArrayList<>();
-        dfs(root, 0, res);
-        return res;
+  /**
+   * LC199：二叉树的右视图
+   * 层序遍历非递归
+   */
+  public List<Integer> rightSideView(TreeNode root) {
+    if (root == null) {
+      return new ArrayList<>();
+    }
+    Deque<TreeNode> queue = new ArrayDeque<>();
+    queue.offer(root);
+
+    List<Integer> res = new ArrayList<>();
+
+    while (!queue.isEmpty()) {
+      int size = queue.size();
+      for (int i = 0; i < size; i++) {
+        TreeNode node = queue.poll();
+
+        if (node != null) {
+          if (i == size - 1) {
+            res.add(node.val);
+          }
+          if (node.left != null) {
+            queue.offer(node.left);
+          }
+          if (node.right != null) {
+            queue.offer(node.right);
+          }
+        }
+      }
     }
 
-    private void dfs(TreeNode node, int depth, List<Integer> res) {
-        if (node == null) {
-            return;
-        }
-        // 如何将右视图装进结果集：根 右 左
-        if (depth == res.size()) {
-            res.add(node.val);
-        }
-        depth++;
-        dfs(node.right, depth, res);
-        dfs(node.left, depth, res);
-    }
+    return res;
+  }
+
+
 }
