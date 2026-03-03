@@ -16,24 +16,34 @@ public class Solution {
     int left = 0, right = n - 1;
 
     List<Integer> res = new ArrayList<>();
+
     while (top <= bottom && left <= right) {
-      // 向左
+      // 向右和向下是打头阵，必须有，不用判断
+      // 向右
       for (int i = left; i <= right; i++) {
         res.add(matrix[top][i]);
       }
       top++;
+
+      // 向下
       for (int i = top; i <= bottom; i++) {
         res.add(matrix[i][right]);
       }
       right--;
+
+
+      // 向左和向上是后走的，考虑到矩阵有可能是一维数组，需要判断
+      // 向左
       if (top <= bottom) {
         for (int i = right; i >= left; i--) {
           res.add(matrix[bottom][i]);
         }
         bottom--;
       }
-      if(left<=right){
-        for (int i = bottom; i >=top ; i--) {
+
+      // 向上
+      if (left <= right) {
+        for (int i = bottom; i >= top; i--) {
           res.add(matrix[i][left]);
         }
         left++;
