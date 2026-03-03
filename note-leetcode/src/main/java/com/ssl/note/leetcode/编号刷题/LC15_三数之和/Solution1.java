@@ -41,13 +41,15 @@ public class Solution1 {
         } else {
           // 5.找到答案
           res.add(Arrays.asList(nums[i], nums[left], nums[right]));
-          // 6.跳过重复值
+          // 6.跳过重复值：例如；[0,0,0,0] 固定第一个0，后续3个0返回的3元组从数字上来看是会重复的
+          // 要求：答案中不可以包含重复的三元组。
           while (left < right && nums[left] == nums[left + 1]) {
             left++;
           }
           while (left < right && nums[right] == nums[right - 1]) {
             right--;
           }
+          // 同时移动双指针
           left++;
           right--;
         }
