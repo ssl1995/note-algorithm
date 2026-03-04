@@ -5,62 +5,44 @@ import com.ssl.note.leetcode.utils.TreeNode;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * @author SongShengLin
- * @date 2021/12/1 11:12 上午
- * @description
- */
 public class Solution {
-    /**
-     * 保存前序序列
-     */
-    private int[] preorder;
-    /**
-     * 查找root在中序遍历中的下标
-     */
-    private Map<Integer, Integer> inMap;
 
-    /**
-     * 根据前序和中序遍历结果，重建二叉树
-     */
-    public TreeNode buildTree(int[] preorder, int[] inorder) {
-        this.preorder = preorder;
-        this.inMap = new HashMap<>();
-
-        // map存中序遍历元素值和索引，提高查找效率
-        for (int i = 0; i < inorder.length; i++) {
-            inMap.put(inorder[i], i);
-        }
-
-        return recur(0, 0, inorder.length - 1);
+  /**
+   * 给定两个整数数组 preorder 和 inorder，请构造二叉树并返回其根节点。
+   * preorder 是二叉树的先序遍历， inorder 是同一棵树的中序遍历
+   * 输入: preorder = [3,9,20,15,7], inorder = [9,3,15,20,7]
+   * 输出: [3,9,20,null,null,15,7]
+   */
+  public TreeNode buildTree(int[] preorder, int[] inorder) {
+    Map<Integer, Integer> map = new HashMap<>();
+    for (int i = 0; i < inorder.length; i++) {
+      map.put(inorder[i], i);
     }
 
+    return dfs(0, 0, preorder.length - 1, preorder, map);
+  }
 
-    /**
-     * 递归生成二叉树
-     *
-     * @param root  前序序列中的根节点坐标
-     * @param left  中序序列中的左子树起点坐标
-     * @param right 中序序列中的右子树起点坐标
-     * @return 返回这个结点
-     */
-    private TreeNode recur(int root, int left, int right) {
-        // base case：左子树索引越过右子树索引，代表没法形成结点，递归返回null
-        if (left > right) {
-            return null;
-        }
-        // 生成根节点
-        TreeNode node = new TreeNode(preorder[root]);
-
-        // 根节点在中序的坐标
-        int inIndex = inMap.get(preorder[root]);
-
-        // node的左子树递归:左子树根节点root+1,左子树范围[left,i-1]
-        node.left = recur(root + 1, left, inIndex - 1);
-        // node的右子树递归:右子树根节点=root+ 根据中序获得左子树长度，才能定位到右子树根节点坐标,右子树范围[i+1,right]
-        node.right = recur(root + (inIndex - left + 1), inIndex + 1, right);
-
-        // 递归回溯,当前node作为上一层的左or右节点
-        return node;
+  /**
+   * 前序找根，中序划范围。
+   * root   = 前序数组的指针，告诉你"根是谁"
+   * left   = 中序数组的左边界，告诉你"从哪开始"
+   * right  = 中序数组的右边界，告诉你"到哪结束"
+   */
+  private TreeNode dfs(int preRoot, int inLeft, int inRight,
+                       int[] preorder, Map<Integer, Integer> map) {
+    if (inLeft > inRight) {
+      return null;
     }
+
+    TreeNode node = new TreeNode(preorder[preRoot]);
+
+    int rootIndex = map.get(preorder[preRoot]);
+    // 左子树长度
+    int leftSize = rootIndex - inLeft;
+
+    node.left = dfs(preRoot + 1, inLeft, rootIndex - 1, preorder, map);
+    node.right = dfs(preRoot + leftSize + 1, rootIndex + 1, inRight, preorder, map);
+
+    return node;
+  }
 }
