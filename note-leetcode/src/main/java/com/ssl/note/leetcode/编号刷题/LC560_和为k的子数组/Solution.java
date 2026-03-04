@@ -17,21 +17,20 @@ public class Solution {
    */
   public int subarraySum(int[] nums, int k) {
 
-    Map<Integer, Integer> map = new HashMap<>();
     // 规定前缀和0，出现的次数=1
+    Map<Integer, Integer> map = new HashMap<>();
     map.put(0, 1);
 
     int sum = 0;
     int count = 0;
-    for (int i = 0; i <= nums.length - 1; i++) {
-      // sum[i]=prefixSum[i+1]=nums[0]+...+nums[i]
-      sum += nums[i];
-      // k = preFixSum[i+1] - 某个前缀和 = sum - 某个前缀和
-      int x = sum - k;
-      // 如果某个前缀和出现过，那就累加
-      if (map.containsKey(x)) {
-        count += map.get(x);
-      }
+
+    for (int num : nums) {
+      sum += num;
+
+      // pre[L,R] = sum[R] - sum[L-1] = k
+      // sum[L-1] = k - sum[R],sum[L-1]就是曾经的某个出现的前缀和
+      count += map.getOrDefault(sum - k, 0);
+
       // map<前缀和，次数>
       map.put(sum, map.getOrDefault(sum, 0) + 1);
     }
