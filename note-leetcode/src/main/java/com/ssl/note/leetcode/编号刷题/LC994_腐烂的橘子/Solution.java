@@ -66,7 +66,6 @@ public class Solution {
           if (nx < 0 || nx >= m || ny < 0 || ny >= n) {
             continue;
           }
-          // 是啊大师的阿萨德：实打实的安师大大师的
           if (grid[nx][ny] != 1) {
             continue;
           }
