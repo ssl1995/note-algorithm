@@ -10,41 +10,39 @@ import java.util.List;
  */
 public class Solution {
 
-    /**
-     * 子集
-     * 数组中的元素 互不相同 。返回该数组所有可能的子集（幂集）
-     * 输入：nums = [1,2,3]
-     * 输出：[[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]
-     */
-    public List<List<Integer>> subsets(int[] nums) {
-        if (nums == null || nums.length == 0) {
-            return new ArrayList<>();
-        }
-        List<List<Integer>> res = new ArrayList<>();
-        helper(nums, 0, new ArrayList<>(), res);
-        return res;
+  /**
+   * 子集
+   * 数组中的元素 互不相同 。返回该数组所有可能的子集（幂集）
+   * 输入：nums = [1,2,3]
+   * 输出：[[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]
+   */
+  public List<List<Integer>> subsets(int[] nums) {
+    List<Integer> path = new ArrayList<>();
+    List<List<Integer>> res = new ArrayList<>();
+
+    backtrack(nums, 0, path, res);
+
+    return res;
+  }
+
+  private void backtrack(int[] nums, int start, List<Integer> path, List<List<Integer>> res) {
+    // 子集:一进来就收集
+    res.add(new ArrayList<>(path));
+
+    for (int i = start; i < nums.length; i++) {
+      path.add(nums[i]);
+
+      backtrack(nums, i + 1, path, res);
+
+      path.remove(path.size() - 1);
     }
+  }
 
-    private void helper(int[] nums, int index, List<Integer> subset, List<List<Integer>> res) {
-        if (index == nums.length) {
-            res.add(new ArrayList<>(subset));
-        } else if (index < nums.length) {
-            // 选择1：跳过该元素
-            helper(nums, index + 1, subset, res);
-
-            // 选择2：加入该元素到子集，然后处理下一个元素
-            subset.add(nums[index]);
-            helper(nums, index + 1, subset, res);
-
-            // 回溯，从子集中删除本轮加入的元素
-            subset.remove(subset.size() - 1);
-        }
-    }
-
-    public static void main(String[] args) {
-        Solution solution = new Solution();
-        int[] nums = {1, 2, 3};
-        List<List<Integer>> res = solution.subsets(nums);
-        System.out.println(res);
-    }
+  public static void main(String[] args) {
+    Solution solution = new Solution();
+    int[] nums = {1, 2, 3};
+    // [[], [1], [1, 2], [1, 2, 3], [1, 3], [2], [2, 3], [3]]
+    List<List<Integer>> res = solution.subsets(nums);
+    System.out.println(res);
+  }
 }
