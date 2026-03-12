@@ -7,4 +7,9 @@ public class Solution {
   public List<List<String>> partition(String s) {
     return null;
   }
+
+  public static void main(String[] args) {
+    Solution solution = new Solution();
+    System.out.println(solution.partition("aab"));
+  }
 }
