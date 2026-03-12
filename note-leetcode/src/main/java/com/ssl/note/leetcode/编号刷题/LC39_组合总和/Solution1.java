@@ -1,7 +1,7 @@
 package com.ssl.note.leetcode.编号刷题.LC39_组合总和;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -10,54 +10,52 @@ import java.util.List;
  * @description
  */
 public class Solution1 {
-    /**
-     * 组合总和：candidates无重复元素，但同一个数字可以重复使用
-     * 输入: candidates = [2,3,5], target = 8
-     * 输出: [[2,2,2,2],[2,3,3],[3,5]]
-     */
-    public List<List<Integer>> combinationSum(int[] candidates, int target) {
-        if (candidates.length == 0) {
-            return new ArrayList<>();
-        }
-        List<List<Integer>> res = new ArrayList<>();
-        List<Integer> temp = new ArrayList<>();
-
-        process(candidates, target, 0, temp, res);
-        return res;
+  /**
+   * 组合总和：candidates无重复元素，但同一个数字可以重复使用
+   * 输入: candidates = [2,3,5], target = 8
+   * 输出: [[2,2,2,2],[2,3,3],[3,5]]
+   */
+  public List<List<Integer>> combinationSum(int[] candidates, int target) {
+    if (candidates == null || candidates.length == 0) {
+      return new ArrayList<>();
     }
+    List<List<Integer>> res = new ArrayList<>();
+    List<Integer> temp = new ArrayList<>();
 
-    /**
-     * 回溯
-     *
-     * @param nums   数组
-     * @param target 目标值
-     * @param i      坐标
-     * @param temp   临时数组
-     * @param res    二维结果集
-     */
-    private void process(int[] nums, int target, int i, List<Integer> temp, List<List<Integer>> res) {
-        if (target == 0) {
-            // 注意：结果集加的是new list(temp)
-            res.add(new LinkedList<>(temp));
-        } else if (i <= nums.length - 1 && target > 0) {
+    // 剪枝优化：先排序
+    Arrays.sort(candidates);
 
-            // 1.选择i位置加入：temp加入nums[i]，i指针不移动，target修改
-            temp.add(nums[i]);
-            process(nums, target - nums[i], i, temp, res);
+    backtrack(candidates, 0, target, temp, res);
+    return res;
+  }
 
-
-            // 2.不选择i位置加入：i指针后移即可
-            // i位置访问完毕，回溯返回之前状态
-            temp.remove(temp.size() - 1);
-            process(nums, target, i + 1, temp, res);
-        }
+  // 回溯1：通用模板
+  private void backtrack(int[] candidates, int index, int target, List<Integer> temp, List<List<Integer>> res) {
+    if (target < 0) {
+      return;
     }
-
-    public static void main(String[] args) {
-        Solution1 solution = new Solution1();
-        int[] nums = {2, 3, 5};
-        int target = 8;
-        System.out.println(solution.combinationSum(nums, target));
+    if (target == 0) {
+      res.add(new ArrayList<>(temp));
+      return;
     }
+    for (int i = index; i < candidates.length; i++) {
+
+      // 剪枝优化：排序完后，当前值已经大于剩余target，后续的值都更大，直接break
+      if (candidates[i] > target) {
+        break;
+      }
+
+      temp.add(candidates[i]);
+      backtrack(candidates, i, target - candidates[i], temp, res);
+      temp.remove(temp.size() - 1);
+    }
+  }
+
+  public static void main(String[] args) {
+    Solution1 solution = new Solution1();
+    int[] nums = { 2, 3, 5 };
+    int target = 8;
+    System.out.println(solution.combinationSum(nums, target));
+  }
 
 }

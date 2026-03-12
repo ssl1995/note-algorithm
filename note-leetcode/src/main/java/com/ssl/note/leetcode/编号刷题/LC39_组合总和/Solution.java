@@ -17,20 +17,19 @@ public class Solution {
    * 输出: [[2,2,2,2],[2,3,3],[3,5]]
    */
   public List<List<Integer>> combinationSum(int[] candidates, int target) {
-    if (candidates == null || target <= 1) {
+    if (candidates == null || candidates.length == 0) {
       return new ArrayList<>();
     }
     List<List<Integer>> res = new ArrayList<>();
     List<Integer> temp = new ArrayList<>();
-    // 剪枝：先排序
-    Arrays.sort(candidates);
+
     backtrack(candidates, 0, target, temp, res);
     return res;
   }
 
   // 回溯1：通用模板
   private void backtrack(int[] candidates, int index, int target, List<Integer> temp, List<List<Integer>> res) {
-    if (target < 0 || index > candidates.length - 1) {
+    if (target < 0) {
       return;
     }
     if (target == 0) {
@@ -39,19 +38,14 @@ public class Solution {
     }
     for (int i = index; i < candidates.length; i++) {
       temp.add(candidates[i]);
-      // 剪枝：排序完后，下一层的递归值<0，后续的值都无需再递归啦
-      if (target - candidates[i] < 0) {
-        break;
-      }
       backtrack(candidates, i, target - candidates[i], temp, res);
       temp.remove(temp.size() - 1);
     }
   }
 
-
   public static void main(String[] args) {
     Solution solution = new Solution();
-    int[] nums = {2, 3, 5};
+    int[] nums = { 2, 3, 5 };
     int target = 8;
     System.out.println(solution.combinationSum(nums, target));
   }
