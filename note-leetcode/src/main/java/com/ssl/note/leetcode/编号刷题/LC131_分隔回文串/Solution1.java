@@ -3,7 +3,7 @@ package com.ssl.note.leetcode.编号刷题.LC131_分隔回文串;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Solution {
+public class Solution1 {
 
   /**
    * 分割回文串
@@ -15,42 +15,45 @@ public class Solution {
     if (s == null) {
       return new ArrayList<>();
     }
+    int n = s.length();
+    // 动态规划，预处理回文串串的判断
+    boolean[][] dp = new boolean[n][n];
+    for (int i = n - 1; i >= 0; i--) {
+      for (int j = i; j <= n - 1; j++) {
+        if (s.charAt(i) == s.charAt(j)) {
+          // 1、<2个字符一定是回文串
+          // 2、当前i,j是相同字符串，那么判断i+1,j-1的字符串是否是回文串
+          dp[i][j] = (j - i + 1 <= 2) || dp[i + 1][j - 1];
+        }
+      }
+    }
+
     List<List<String>> res = new ArrayList<>();
-    dfs(s, 0, new ArrayList<>(), res);
+    dfs(s, 0, dp, new ArrayList<>(), res);
     return res;
   }
 
-  private void dfs(String s, int index, List<String> path, List<List<String>> res) {
+  private void dfs(String s, int index, boolean[][] dp, List<String> path, List<List<String>> res) {
     if (index == s.length()) {
       res.add(new ArrayList<>(path));
       return;
     }
     for (int i = index; i < s.length(); i++) {
-      if (!isPalindrome(s, index, i)) {
+      // 用dp判断回文串，时间复杂度O(1)
+      if (!dp[index][i]) {
         continue;
       }
       path.add(s.substring(index, i + 1));
       // [index,i]已经是回文了，递归i+1检查是不是回文串
-      dfs(s, i + 1, path, res);
+      dfs(s, i + 1, dp, path, res);
       path.remove(path.size() - 1);
     }
   }
 
-  // 检查是不是回文串，O(n)时间复杂度->后序可以优化成O(1)使用动态规划
-  private boolean isPalindrome(String s, int start, int end) {
-    while (start < end) {
-      if (s.charAt(start) != s.charAt(end)) {
-        return false;
-      }
-      start++;
-      end--;
-    }
-    return true;
-  }
 
   public static void main(String[] args) {
-    Solution solution = new Solution();
-    String s  = "aab";
+    Solution1 solution = new Solution1();
+    String s = "aab";
     System.out.println(solution.partition(s));
   }
 }
