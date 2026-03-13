@@ -100,14 +100,10 @@ public class Solution {
 
   private void addToRes(char[][] board, List<List<String>> res) {
     List<String> temp = new ArrayList<>();
-    StringBuilder sb = new StringBuilder();
-    for (int i = 0; i < board.length; i++) {
-      for (int j = 0; j < board[0].length; j++) {
-        sb.append(board[i][j]);
-      }
-      temp.add(sb.toString());
-
-      sb.setLength(0);
+    for (char[] cs : board) {
+      String s = new String(cs);
+      temp.add(s);
+//      temp.add(String.copyValueOf(cs));
     }
     res.add(temp);
   }
