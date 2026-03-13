@@ -54,7 +54,7 @@ public class Solution1 {
     for (int col = 0; col < n; col++) {
       // 主对角线在数组中下标：row-col的最小值在(0,n-1)位置，为了让数组下标不越界，加上n-1
       int d1 = row - col + n - 1;
-      // 副对角线在数组中的下标：
+      // 副对角线在数组中的下标：row+col最小值(0,0)就是大于0的，所以不用加任何数
       int d2 = row + col;
       if (colUsed[col] || diag1[d1] || diag2[d2]) {
         continue;
