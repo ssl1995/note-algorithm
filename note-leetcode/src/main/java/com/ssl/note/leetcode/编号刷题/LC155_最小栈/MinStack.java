@@ -1,60 +1,49 @@
 package com.ssl.note.leetcode.编号刷题.LC155_最小栈;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.LinkedList;
 
-/**
- * @author SongShengLin
- * @date 2022/1/9 12:08 PM
- * @description
- */
+
 public class MinStack {
-    /**
-     * 栈1：数据栈，正常压入弹出
-     */
-    private LinkedList<Integer> stack1;
 
-    /**
-     * 栈2：辅助栈，栈顶保持栈1中的最小值
-     */
-    private LinkedList<Integer> stack2;
+  private Deque<Integer> dataStack;
+  private Deque<Integer> minStack;
 
-    public MinStack() {
-        stack1 = new LinkedList<>();
-        stack2 = new LinkedList<>();
+  public MinStack() {
+    dataStack = new ArrayDeque<>();
+    minStack = new ArrayDeque<>();
+  }
+
+  public void push(int val) {
+    dataStack.push(val);
+    if (minStack.isEmpty() || val < minStack.peek()) {
+      minStack.push(val);
+    } else {
+      minStack.push(minStack.peek());
     }
+  }
 
-    public void push(int x) {
-        // 栈2压入：1.x大就压入min；2.x小就压入x
-        if (stack2.isEmpty() || x <= getMin()) {
-            stack2.push(x);
-        }
-        if (x > getMin()) {
-            stack2.push(getMin());
-        }
-        // 栈1每次正常进栈
-        stack1.push(x);
+  public void pop() {
+    if (!dataStack.isEmpty()) {
+      dataStack.pop();
     }
+    if (!minStack.isEmpty()) {
+      minStack.pop();
+    }
+  }
 
-    public void pop() {
-        if (stack1.isEmpty()) {
-            throw new RuntimeException("MinStack is empty");
-        }
-        // 出栈是两个辅助栈都要出
-        stack1.pop();
-        stack2.pop();
+  public int top() {
+    if (dataStack.isEmpty()) {
+      return -1;
     }
+    return dataStack.peek();
+  }
 
-    public int top() {
-        if (stack1.isEmpty()) {
-            throw new RuntimeException("MinStack is empty");
-        }
-        return stack1.peek();
+  public int getMin() {
+    if (minStack.isEmpty()) {
+      return -1;
     }
-
-    public int getMin() {
-        if (stack2.isEmpty()) {
-            throw new RuntimeException("MinStack is empty");
-        }
-        return stack2.peek();
-    }
+    return minStack.peek();
+  }
 }
