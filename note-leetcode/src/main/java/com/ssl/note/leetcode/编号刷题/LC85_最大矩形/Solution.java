@@ -1,5 +1,7 @@
 package com.ssl.note.leetcode.编号刷题.LC85_最大矩形;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.LinkedList;
 
 /**
@@ -8,68 +10,81 @@ import java.util.LinkedList;
  * @description
  */
 public class Solution {
-    /**
-     * 最大矩形
-     * matrix = [["1","0","1","0","0"],
-     * ["1","0","1","1","1"],
-     * ["1","1","1","1","1"],
-     * ["1","0","0","1","0"]]
-     * 输出：6
-     */
-    public int maximalRectangle(char[][] matrix) {
-        if (matrix == null || matrix.length == 0) {
-            return 0;
-        }
-        // 复用84题逻辑，将二维matrix中的1理解为一维数组中的高度
-        int[] heights = new int[matrix[0].length];
-        int maxArea = 0;
-        for (char[] rows : matrix) {
-            for (int j = 0; j < matrix[0].length; j++) {
-                if (rows[j] == '0') {
-                    heights[j] = 0;
-                } else if (rows[j] == '1') {
-                    heights[j]++;
-                }
-            }
-            // 每一行结束就当前行取到的最大矩形面积
-            maxArea = Math.max(maxArea, largestRectangleArea(heights));
-        }
-        return maxArea;
+  /**
+   * 最大矩形
+   * matrix = [["1","0","1","0","0"],
+   * ["1","0","1","1","1"],
+   * ["1","1","1","1","1"],
+   * ["1","0","0","1","0"]]
+   * 输出：6
+   * 解析：这道题主要是考查LC84题的应用
+   */
+  public int maximalRectangle(char[][] matrix) {
+    if (matrix == null || matrix.length == 0) {
+      return 0;
+    }
+    int col = matrix[0].length;
+    int[] heights = new int[col];
+
+    int maxArea = 0;
+    for (char[] cs : matrix) {
+      for (int i = 0; i < col; i++) {
+        // 如果遇到0，重置高度=0
+        // 如果遇到1，高度=上次高度+1
+        heights[i] = cs[i] == '0' ? 0 : ++heights[i];
+      }
+      maxArea = Math.max(maxArea, largestRectangleArea(heights));
     }
 
-    /**
-     * 柱状图中最大矩形
-     * 力扣84题
-     */
-    private int largestRectangleArea(int[] heights) {
-        if (heights == null || heights.length == 0) {
-            return 0;
-        }
-        LinkedList<Integer> stack = new LinkedList<>();
-        stack.push(-1);
-        int maxArea = 0;
-        for (int i = 0; i < heights.length; i++) {
-            while (stack.peek() != -1 && heights[stack.peek()] >= heights[i]) {
-                maxArea = Math.max(maxArea, heights[stack.pop()] * (i - 1 - stack.peek()));
-            }
-            stack.push(i);
-        }
-        while (stack.peek() != -1) {
-            maxArea = Math.max(maxArea, heights[stack.pop()] * (heights.length - 1 - stack.peek()));
-        }
-        return maxArea;
+    return maxArea;
+  }
+
+  /**
+   * 柱状图中最大矩形
+   * 力扣84题
+   */
+  private int largestRectangleArea(int[] heights) {
+    if (heights == null || heights.length == 0) {
+      return 0;
+    }
+    int n = heights.length;
+    Deque<Integer> stack = new ArrayDeque<>();
+
+    int maxArea = 0;
+    for (int i = 0; i < n; i++) {
+      while (!stack.isEmpty() && heights[stack.peek()] >= heights[i]) {
+        int j = stack.pop();
+        int k = stack.isEmpty() ? -1 : stack.peek();
+        int area = (i - k - 1) * heights[j];
+        maxArea = Math.max(maxArea, area);
+      }
+      stack.push(i);
     }
 
-    public static void main(String[] args) {
-        Solution solution = new Solution();
-        char[][] matrix = {
-                {'1', '0', '1', '0', '0'},
-                {'1', '0', '1', '1', '1'},
-                {'1', '1', '1', '1', '1'},
-                {'1', '0', '0', '1', '0'}
-        };
-        System.out.println(solution.maximalRectangle(matrix));
+    while (!stack.isEmpty()) {
+      int j = stack.pop();
+      int k = stack.isEmpty() ? -1 : stack.peek();
+      int area = (n - k - 1) * heights[j];
+      maxArea = Math.max(maxArea, area);
     }
+
+    return maxArea;
+  }
+
+  public static void main(String[] args) {
+    Solution solution = new Solution();
+//    char[][] matrix = {
+//        {'1', '0', '1', '0', '0'},
+//        {'1', '0', '1', '1', '1'},
+//        {'1', '1', '1', '1', '1'},
+//        {'1', '0', '0', '1', '0'}
+//    };
+    char[][] matrix1 = {
+        {'0', '1'},
+        {'1', '0'}
+    };
+    System.out.println(solution.maximalRectangle(matrix1));
+  }
 }
 
 

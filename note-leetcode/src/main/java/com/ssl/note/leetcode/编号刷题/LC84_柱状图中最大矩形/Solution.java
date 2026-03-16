@@ -21,11 +21,11 @@ public class Solution {
       return 0;
     }
     int maxArea = 0;
-    Stack<Integer> stack = new Stack<>();
+    Deque<Integer> stack = new ArrayDeque<>();
     for (int i = 0; i < height.length; i++) {
-      // 栈底到栈顶：从大到小
+      // 栈底到栈顶：从小到大，遇到比栈顶小的就要出栈
       while (!stack.isEmpty() && height[i] <= height[stack.peek()]) {
-        // 以h[j]为最小值往左右两边扩，能扩大什么位置
+        // 栈顶：h[j]，表示为最小值往左右两边扩，能扩大什么位置
         int j = stack.pop();
         // 左边比它大的扩不到
         int k = stack.isEmpty() ? -1 : stack.peek();
