@@ -2,11 +2,6 @@ package com.ssl.note.leetcode.编号刷题.LC215_数组中的第K大元素;
 
 import java.util.Random;
 
-/**
- * @author SongShengLin
- * @date 2022/6/18 18:35
- * @description
- */
 public class Solution {
 
   /**
@@ -15,52 +10,63 @@ public class Solution {
    * 输出: 4
    */
   public int findKthLargest(int[] nums, int k) {
-    int t = nums.length - k;
-    int left = 0;
-    int right = nums.length - 1;
-
-    int pivot = partition(nums, left, right);
-    // 快速排序 => 修改为类似二分的思想去快速选择
-    while (pivot != t) {
-      if (pivot < t) {
-        left = pivot + 1;
-      } else {
-        right = pivot - 1;
-      }
-
-      pivot = partition(nums, left, right);
-    }
-
-    return nums[pivot];
+    // 计算目标位置：第k大元素在排序数组中的索引
+    int target = nums.length - k;
+    // 调用三路快速选择函数
+    return quickSelect(nums, 0, nums.length - 1, target);
   }
 
-  // 快速排序，<pivot的放左边，>=放右边
-  private int partition(int[] nums, int left, int right) {
-    // [left,right]找一个随机值
-    // 防止顺序/倒叙数组造成的极端情况，每次都随机交换pivot和最后一位的元素
+  private int quickSelect(int[] nums, int left, int right, int target) {
+    // 当区间只包含一个元素时，直接返回
+    if (left == right) {
+      return nums[left];
+    }
+
+    // 随机选择pivot，避免最坏情况
     int random = new Random().nextInt(right - left + 1) + left;
     swap(nums, random, right);
 
-    // p1 始终指向最后一个 小于pivot 的元素的位置
-    int p1 = left - 1;
-    // p2 遍历指针
-    int p2 = left;
+    // 三路分割的核心逻辑
+    int pivot = nums[right];  // 选择最右元素作为pivot
+    int lt = left - 1;        // 小于pivot的右边界（初始为left-1）
+    int gt = right;           // 大于pivot的左边界（初始为right）
+    int i = left;             // 当前遍历位置（从left开始）
 
-    while (p2 <= right) {
-      if (nums[p2] < nums[right]) {
-        p1++;
-        swap(nums, p1, p2);
+    // 遍历过程：将数组分为三部分
+    while (i < gt) {
+      if (nums[i] < pivot) {
+        // 当前元素小于pivot，放到左侧
+        lt++;
+        swap(nums, lt, i);
+        i++;  // 继续下一个元素
+      } else if (nums[i] > pivot) {
+        // 当前元素大于pivot，放到右侧
+        gt--;
+        swap(nums, gt, i);
+        // 注意：这里i不增加，因为交换过来的元素还没检查
+      } else {
+        // 当前元素等于pivot，保持在中间
+        i++;
       }
-      p2++;
     }
+    // 将pivot放到正确的位置（大于pivot区间的最左侧）
+    swap(nums, gt, right);
 
-    // p1+1 是pivot的正确位置,交换返回
-    p1++;
-    swap(nums, p1, right);
-    return p1;
+    // 根据target的位置决定搜索方向
+    if (target <= lt) {
+      // target在小于pivot的区间，在左半部分继续搜索
+      return quickSelect(nums, left, lt, target);
+    } else if (target >= gt) {
+      // target在大于pivot的区间，在右半部分继续搜索
+      return quickSelect(nums, gt, right, target);
+    } else {
+      // target在等于pivot的区间，直接返回该位置的元素
+      return nums[target];
+    }
   }
 
   private void swap(int[] nums, int i, int j) {
+    // 避免自我交换
     if (i == j) {
       return;
     }
@@ -70,12 +76,10 @@ public class Solution {
   }
 
   public static void main(String[] args) {
-//    int[] nums = {3, 2, 1, 5, 6, 4};
-//    int k = 2;
-//    Solution solution = new Solution();
-//    System.out.println(solution.findKthLargest(nums, k));
-    System.out.println(new Random().nextInt(10 - 1 + 1));
-    System.out.println(new Random().nextInt(10 - 1 + 1) + 1);
-
+    int[] nums = {3,2,3,1,2,4,5,5,6};
+    int k = 4;
+    Solution solution = new Solution();
+    // 4
+    System.out.println(solution.findKthLargest(nums, k));
   }
 }
