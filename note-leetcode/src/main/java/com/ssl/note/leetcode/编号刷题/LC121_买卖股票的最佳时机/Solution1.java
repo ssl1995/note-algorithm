@@ -5,7 +5,7 @@ package com.ssl.note.leetcode.编号刷题.LC121_买卖股票的最佳时机;
  * @Date: 2022/06/15 2:56 PM
  * @Describe:
  */
-public class Solution {
+public class Solution1 {
 
   /**
    * 买卖股票的最佳时机
@@ -18,20 +18,25 @@ public class Solution {
     if (prices == null) {
       return 0;
     }
-    // 贪心：一次遍历用当前找到的最低价格来计算,就是本题最优解
-    int min = prices[0];
-    int max = 0;
+    int n = prices.length;
+    int[][] dp = new int[n][2];
+    // i天不持有股票最大利润
+    dp[0][0] = 0;
+    // i天持有股票最大利润
+    dp[0][1] = -prices[0];
 
-    for (int price : prices) {
-      min = Math.min(min, price);
-
-      max = Math.max(max, price - min);
+    for (int i = 1; i < n; i++) {
+      // i天不持有股票的最大利润：i-1天就没有持有 or i-1天持有，当天卖出
+      dp[i][0] = Math.max(dp[i - 1][0], dp[i - 1][1] + prices[i]);
+      // i天持有股票的最大利润：i-1天就持有，当天不变 or 当天买入
+      dp[i][1] = Math.max(dp[i - 1][1], -prices[i]);
     }
-    return max;
+    // 返回最后一天不持有股票的最大利润
+    return dp[n - 1][0];
   }
 
   public static void main(String[] args) {
-    Solution solution = new Solution();
+    Solution1 solution = new Solution1();
     int[] nums = {7, 1, 5, 3, 6, 4};
     System.out.println(solution.maxProfit(nums));
   }
