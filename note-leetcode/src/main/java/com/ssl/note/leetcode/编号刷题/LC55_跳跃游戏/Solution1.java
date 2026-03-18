@@ -5,7 +5,7 @@ package com.ssl.note.leetcode.编号刷题.LC55_跳跃游戏;
  * @date 2022/1/26 8:58 AM
  * @description
  */
-public class Solution {
+public class Solution1 {
   /**
    * 跳跃游戏
    * 数组中的每个元素代表你在该位置可以跳跃的最大长度。判断你是否能够到达最后一个下标。
@@ -39,7 +39,7 @@ public class Solution {
   }
 
   public static void main(String[] args) {
-    Solution solution = new Solution();
+    Solution1 solution = new Solution1();
     int[] nums = {2, 3, 1, 1, 4};
     System.out.println(solution.canJump(nums));
   }
