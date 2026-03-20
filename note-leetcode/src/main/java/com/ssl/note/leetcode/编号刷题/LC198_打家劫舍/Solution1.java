@@ -1,11 +1,6 @@
 package com.ssl.note.leetcode.编号刷题.LC198_打家劫舍;
 
-/**
- * @author SongShengLin
- * @date 2022/2/22 7:44 AM
- * @description
- */
-public class Solution {
+public class Solution1 {
   /**
    * 打家劫舍
    * 要求：不能盗窃相邻房间
@@ -21,22 +16,21 @@ public class Solution {
     if (nums.length == 1) {
       return nums[0];
     }
-    int n = nums.length;
-    int[] dp = new int[n];
-    dp[0] = nums[0];
-    dp[1] = Math.max(nums[0], nums[1]);
 
-    for (int i = 2; i < n; i++) {
-      // 状态转移方程：偷第i间房屋 vs 不偷第i间房屋
-      // 动态转移方程涉及i-1和i-2，就要考虑：初始化条件和数组长度
-      dp[i] = Math.max(dp[i - 1], dp[i - 2] + nums[i]);
+    int pre1 = nums[0];
+    int pre2 = Math.max(nums[0], nums[1]);
+
+    for (int i = 2; i < nums.length; i++) {
+      // 陷阱：前一天不偷pre2 vs (前两天偷pre1 + 当天偷nums[i])
+      int temp = Math.max(pre2, pre1 + nums[i]);
+      pre1 = pre2;
+      pre2 = temp;
     }
-
-    return dp[n - 1];
+    return pre2;
   }
 
   public static void main(String[] args) {
-    Solution solution = new Solution();
+    Solution1 solution = new Solution1();
     int[] nums = {2, 7, 9, 3, 1};
     System.out.println(solution.rob(nums));
   }
