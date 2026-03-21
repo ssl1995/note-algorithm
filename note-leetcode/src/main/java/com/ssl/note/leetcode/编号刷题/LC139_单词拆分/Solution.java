@@ -11,46 +11,55 @@ import java.util.Set;
  * @description
  */
 public class Solution {
-    /**
-     * 单词拆分
-     * 输入: s = "applepenapple", wordDict = ["apple", "pen"]
-     * 输出: true
-     * 解释: 返回 true 因为 "applepenapple" 可以由 "apple" "pen" "apple" 拼接成。
-     * 注意，你可以重复使用字典中的单词。
-     */
-    public boolean wordBreak(String s, List<String> wordDict) {
-        int n = s.length();
-        // dp[i]:s的前i个字符能否被匹配
-        boolean[] dp = new boolean[n + 1];
-        // 空串表示可以被任意单词匹配
-        dp[0] = true;
+  /**
+   * 单词拆分
+   * 输入: s = "applepenapple", wordDict = ["apple", "pen"]
+   * 输出: true
+   * 解释: 返回 true 因为 "applepenapple" 可以由 "apple" "pen" "apple" 拼接成。
+   * 注意，你可以重复使用字典中的单词。
+   * 1 <= s.length <= 300
+   * 1 <= wordDict.length <= 1000
+   * 1 <= wordDict[i].length <= 20
+   * s 和 wordDict[i] 仅由小写英文字母组成
+   * wordDict 中的所有字符串 互不相同
+   */
+  public boolean wordBreak(String s, List<String> wordDict) {
+    int n = s.length();
+    boolean[] dp = new boolean[n + 1];
+    dp[0] = true;
 
-        // set:[[apple],[pen]]
-        Set<String> set = new HashSet<>(wordDict);
+    // 优化查询效率
+    Set<String> set = new HashSet<>(wordDict);
 
-        for (int i = 1; i <= n; i++) {
-            for (int j = 0; j < i; j++) {
-                // dp[j]与子字符串来判断dp[i]状态
-                if (dp[j] && set.contains(s.substring(j, i))) {
-                    dp[i] = true;
-                    // 内存循环只有匹配成功一次，就跳出到外层；开启下一个外层循环
-                    break;
-                }
-            }
+    for (int i = 1; i <= n; i++) {
+      for (int j = 0; j < i; j++) {
+        boolean isTrue = dp[j] && isContains(set, s.substring(j, i));
+        // 前i个字符串是否包含在字典中，一旦有一个满足条件就要跳出内层循环
+        // 如果不跳过，后续的字符串可能会覆盖前面的结果
+        if (isTrue) {
+          dp[i] = true;
+          break;
         }
-
-        return dp[n];
-
+      }
     }
 
-    public static void main(String[] args) {
-        Solution solution = new Solution();
-        String s = "applepenapple";
-        List<String> wordDict = new ArrayList<>();
-        wordDict.add("apple");
-        wordDict.add("pen");
+    return dp[n];
+  }
 
-        System.out.println(solution.wordBreak(s, wordDict));
+  private boolean isContains(Set<String> set, String subStr) {
+    return set.contains(subStr);
+  }
 
-    }
+  public static void main(String[] args) {
+    Solution solution = new Solution();
+    String s = "leetcode";
+    List<String> wordDict = new ArrayList<>();
+    wordDict.add("leet");
+    wordDict.add("code");
+
+    System.out.println(wordDict.contains("leet"));
+
+    System.out.println(solution.wordBreak(s, wordDict));
+
+  }
 }
