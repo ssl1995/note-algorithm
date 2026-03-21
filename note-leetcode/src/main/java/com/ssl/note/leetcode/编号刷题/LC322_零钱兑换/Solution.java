@@ -1,5 +1,8 @@
 package com.ssl.note.leetcode.编号刷题.LC322_零钱兑换;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
+
 /**
  * @author SongShengLin
  * @date 2022/6/20 23:07
@@ -21,25 +24,20 @@ public class Solution {
     if (coins == null || coins.length == 0) {
       return -1;
     }
-    // dp[i]=选出总额为i的最少硬币数
     int[] dp = new int[amount + 1];
-    // 遍历[1,amount],因为金额从1到amount
-    for (int i = 1; i <= amount; i++) {
-      // dp[i]所需要的最多硬币数就是它自己
-      // 比如t=11，dp中i的最大值就是11，永远达不到12
-      // 预设dp[i]=amount + 1
-      dp[i] = amount + 1;
+    // 模拟不可达，设置值为amount + 1
+    Arrays.fill(dp, amount + 1);
+    dp[0] = 0;
 
-      // 遍历条件给的硬币数
+    for (int i = 1; i <= amount + 1; i++) {
       for (int coin : coins) {
-        if (coin <= i) {
-          // i-coin位置最小值，然后再加一张coin，所以+1
-          dp[i] = Math.min(dp[i], dp[i - coin] + 1);
+        if (i - coin >= 0) {
+          dp[i] = Math.min(dp[i - coin] + 1, dp[i]);
         }
       }
     }
 
-    return dp[amount] == amount + 1 ? -1 : dp[amount];
+    return dp[amount] > amount ? -1 : dp[amount];
   }
 
   public static void main(String[] args) {
