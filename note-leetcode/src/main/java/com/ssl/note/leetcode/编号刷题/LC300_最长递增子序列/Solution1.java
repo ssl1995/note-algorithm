@@ -7,40 +7,37 @@ public class Solution1 {
    * 输入：nums = [10,9,2,5,3,7,101,18]
    * 输出：4
    * 解释：最长递增子序列是 [2,3,7,101]，因此长度为 4
-   * 方法：贪心+二分查找优化
+   * 方法：贪心+二分查找优化，
+   * 时间复杂度：O(nlogn)
    */
   public int lengthOfLIS(int[] nums) {
     if (nums == null || nums.length == 0) {
       return 0;
     }
-    // nums = {10, 9, 2, 5, 3, 7, 101, 18};
-    // help = {2, 3, 7, 18, 0, 0, 0, 0};
-    // help[i]记录最长子序列的第i个元素
-    int[] help = new int[nums.length];
-    // maxLen:记录help中有效最长子序列的右边界
-    int maxLen = 0;
+    // 维护一个递增序列 tail，其中 tail[i] 表示长度为 i+1 的最长递增子序列的最小末尾元素。
+    int[] tail = new int[nums.length];
+    // tail的长度就是最长递增子序列的长度
+    int len = 0;
+
     for (int num : nums) {
-      // 加速：利用二分，在help[0,maxLen]中找第一个>=num的下标
-      int left = 0, right = maxLen;
+      int left = 0, right = len;
+      // 对于每个新元素 num，在 tail 中找到第一个大于等于 num 的位置，替换为 num。
       while (left < right) {
         int mid = left + (right - left) / 2;
-        if (help[mid] < num) {
+        if (tail[mid] < num) {
           left = mid + 1;
-        } else if (help[mid] >= num) {
-          // 因为right初始化是开区间，所以这里是mid，不是mid+1
+        } else {
           right = mid;
         }
       }
-      // while结束，left指向help中第一个>=num的下标
-      // 更新help
-      help[left] = num;
-      // 更新右边界=更新help中最长子序列最大长度
-      // help=[1,2,3]，num=4
-      if (maxLen == right) {
-        maxLen++;
+
+      tail[left] = num;
+      if (left == len) {
+        len++;
       }
     }
-    return maxLen;
+
+    return len;
   }
 
 
