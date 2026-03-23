@@ -1,6 +1,6 @@
 package com.ssl.note.leetcode.编号刷题.LC64_最小路径和;
 
-public class Solution {
+public class Solution1 {
 
   /**
    * 题目：给定一个包含非负整数的 m x n 网格 grid ，请找出一条从左上角到右下角的路径，使得路径上的数字总和为最小。
@@ -15,30 +15,28 @@ public class Solution {
     }
     int m = grid.length;
     int n = grid[0].length;
+    // 求和问题，不能单独初始化第一列或者第一行
+    int[] dp = new int[n];
 
-    int[][] dp = new int[m][n];
-    dp[0][0] = grid[0][0];
-
-    for (int i = 1; i < m; i++) {
-      dp[i][0] = dp[i - 1][0] + grid[i][0];
-    }
-
-    for (int i = 1; i < n; i++) {
-      dp[0][i] = dp[0][i - 1] + grid[0][i];
-    }
-
-    for (int i = 1; i < m; i++) {
-      for (int j = 1; j < n; j++) {
-        // dp数组
-        dp[i][j] = Math.min(dp[i - 1][j], dp[i][j - 1]) + grid[i][j];
+    for (int i = 0; i < m; i++) {
+      for (int j = 0; j < n; j++) {
+        if (i == 0 && j == 0) {
+          dp[j] = grid[i][j];
+        } else if (i == 0) {
+          dp[j] = dp[j - 1] + grid[i][j];
+        } else if (j == 0) {
+          dp[j] = dp[j] + grid[i][j];
+        } else {
+          dp[j] = Math.min(dp[j - 1], dp[j]) + grid[i][j];
+        }
       }
     }
 
-    return dp[m - 1][n - 1];
+    return dp[n - 1];
   }
 
   public static void main(String[] args) {
-    Solution solution = new Solution();
+    Solution1 solution = new Solution1();
     int[][] grid = {{1, 3, 1}, {1, 5, 1}, {4, 2, 1}};
     System.out.println(solution.minPathSum(grid));
   }
