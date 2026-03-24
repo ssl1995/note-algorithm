@@ -1,6 +1,11 @@
 package com.ssl.note.leetcode.编号刷题.LC72_编辑距离;
 
-public class Solution {
+/**
+ * @author SongShengLin
+ * @date 2022/1/27 9:11 AM
+ * @description
+ */
+public class Solution1 {
 
   /**
    * 编辑距离
@@ -14,38 +19,37 @@ public class Solution {
    * exention -> exection (将 'n' 替换为 'c')
    * exection -> execution (插入 'u')
    */
+  // 一维数组空间优化
   public int minDistance(String word1, String word2) {
+    if (word1.length() < word2.length()) {
+      return minDistance(word2, word1);
+    }
     int m = word1.length();
     int n = word2.length();
-    // dp[i][j] 表示 word1 的前 i 个字符转换成 word2 的前 j 个字符所需的最少操作数
-    int[][] dp = new int[m + 1][n + 1];
-    // 初始化
-    dp[0][0] = 0;
-    for (int i = 0; i < m + 1; i++) {
-      dp[i][0] = i;// 删除i次
-    }
-    for (int j = 0; j < n + 1; j++) {
-      dp[0][j] = j;// 插入j次
-    }
-    // 动态转移
-    for (int i = 1; i < m + 1; i++) {
-      for (int j = 1; j < n + 1; j++) {
-        // 字母相同：不做操作
-        if (word1.charAt(i - 1) == word2.charAt(j - 1)) {
-          dp[i][j] = dp[i - 1][j - 1];
-          continue;
-        }
-        // 字母不相同：（删除、新增、替换取最小） + 1
-        dp[i][j] = Math.min(dp[i - 1][j], Math.min(dp[i][j - 1], dp[i - 1][j - 1]))
-            + 1;
-      }
+    int[] dp = new int[n + 1];
+
+    for (int j = 1; j <= n; j++) {
+      dp[j] = j;
     }
 
-    return dp[m][n];
+    for (int i = 1; i <= m; i++) {
+      int prev = dp[0];  // 左上角的值
+      dp[0] = i;         // 第一列更新
+      for (int j = 1; j <= n; j++) {
+        int temp = dp[j];
+        if (word1.charAt(i - 1) == word2.charAt(j - 1)) {
+          dp[j] = prev;
+        } else {
+          dp[j] = Math.min(Math.min(dp[j], dp[j - 1]), prev) + 1;
+        }
+        prev = temp;
+      }
+    }
+    return dp[n];
   }
 
   public static void main(String[] args) {
-    Solution solution = new Solution();
+    Solution1 solution = new Solution1();
     String w1 = "intention";
     String w2 = "execution";
     System.out.println(solution.minDistance(w1, w2));
