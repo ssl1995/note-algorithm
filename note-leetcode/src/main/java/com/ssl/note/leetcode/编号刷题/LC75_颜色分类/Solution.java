@@ -2,11 +2,6 @@ package com.ssl.note.leetcode.编号刷题.LC75_颜色分类;
 
 import java.util.Arrays;
 
-/**
- * @author SongShengLin
- * @date 2022/1/28 8:24 AM
- * @description
- */
 public class Solution {
 
   /**
@@ -14,6 +9,7 @@ public class Solution {
    * 使得相同颜色的元素相邻，并按照红色、白色、蓝色顺序排列
    * 输入：nums = [2,0,2,1,1,0]
    * 输出：[0,0,1,1,2,2]
+   * 方法：计数排序
    */
   public void sortColors(int[] nums) {
     // 荷兰国旗问题
