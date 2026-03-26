@@ -1,10 +1,11 @@
 算法刷题力扣Top100刷完第一遍，虽然前面的很多已经忘了，成就感还是很不错的，现在需要进行下一步计划了：
-1、刷题笔记如下，我现在需要整理力扣Top100的分类，比如链表题是哪些？双指针是哪些？动态规划是哪些？形成一个表格，输出一篇md文档，我好分类记忆刷第二遍
-    刷题笔记：D:\project\java\note-algorithm\docs\01-刷题计划\刷题笔记.png
-2、面试准备，算法已经完成第一遍，现在计划背面经和项目，我买了知识星球，小博哥的知识星球,我用Chrome已经登录， 你先尝试扫描是否可以扫描网页内容
-    https://wx.zsxq.com/columns/48411118851818?column_id=481852845128
-3、根据小博哥的知识星球目录或者推荐大纲，我的学习周期是1个半月到2个月，开始投简历面试，整理学习计划
-    截图：D:\project\java\note-algorithm\docs\01-刷题计划\星球课程.png
+1、我的刷题飞书笔记
+    /Users/ssl/code/note-algorithm/docs/my-task/01-algorithm/第一次刷题整理.png
+2、官方top100分类
+    /Users/ssl/code/note-algorithm/docs/my-task/01-algorithm/官方top100分类.png
+3、我的Top100分类
+    /Users/ssl/code/note-algorithm/docs/my-task/01-algorithm/Top100分类表.md
+我发现3中我的Top100分类没有官方Top100的方便，请更新Top100分类表.md文件，以力扣官方的分类为主，缺少的题可以补充，
 
 回复采用中文
 文档格式：markdown，取当前北京时间，文档命名方式：月-日-时-分 文件名
