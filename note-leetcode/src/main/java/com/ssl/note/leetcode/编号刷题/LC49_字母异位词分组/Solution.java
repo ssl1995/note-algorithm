@@ -47,8 +47,21 @@ public class Solution {
   }
 
   public static void main(String[] args) {
-    Solution solution = new Solution();
-    String[] strs = {"eat", "tea", "tan", "ate", "nat", "bat"};
-    System.out.println(solution.groupAnagrams(strs));
+//    Solution solution = new Solution();
+//    String[] strs = {"eat", "tea", "tan", "ate", "nat", "bat"};
+//    System.out.println(solution.groupAnagrams(strs));
+
+    Map<String, Integer> map = new HashMap<>();
+// 键不存在时，计算新值并插入
+    map.compute("a", (k, v) -> (v == null) ? 1 : v + 1); // 返回 1（插入）
+    System.out.println(map.get("a"));
+// 键存在时，基于旧值计算新值
+    map.compute("a", (k, v) -> (v == null) ? 1 : v + 1); // 返回 2（更新）
+    System.out.println(map.get("a"));
+
+// 函数返回null时，删除键
+    map.compute("a", (k, v) -> null); // 返回 null（删除键）
+    System.out.println(map.get("a"));
+
   }
 }
