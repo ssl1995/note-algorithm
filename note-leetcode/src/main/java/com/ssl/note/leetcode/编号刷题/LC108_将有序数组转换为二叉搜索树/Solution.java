@@ -1,6 +1,6 @@
 package com.ssl.note.leetcode.编号刷题.LC108_将有序数组转换为二叉搜索树;
 
-import com.ssl.note.leetcode.utils.TreeNode;
+import com.ssl.note.common.utils.TreeNode;
 
 public class Solution {
   /**

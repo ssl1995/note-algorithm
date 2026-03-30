@@ -1,6 +1,6 @@
 package com.ssl.note.zuo.bilibili.C11_两个链表相加;
 
-import com.ssl.note.zuo.utils.ListNode;
+import com.ssl.note.common.utils.ListNode;
 
 public class AddTwoNumbers {
 

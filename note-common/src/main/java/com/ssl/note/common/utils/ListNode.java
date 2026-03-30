@@ -1,4 +1,4 @@
-package com.ssl.note.leetcode.utils;
+package com.ssl.note.common.utils;
 
 public class ListNode {
   public int val;

@@ -1,6 +1,6 @@
 package com.ssl.note.leetcode.编号刷题.LC199_二叉树的右视图;
 
-import com.ssl.note.leetcode.utils.TreeNode;
+import com.ssl.note.common.utils.TreeNode;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;

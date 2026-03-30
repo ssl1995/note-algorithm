@@ -1,4 +1,4 @@
-package com.ssl.note.leetcode.utils;
+package com.ssl.note.common.utils;
 
 import java.util.Arrays;
 import java.util.List;

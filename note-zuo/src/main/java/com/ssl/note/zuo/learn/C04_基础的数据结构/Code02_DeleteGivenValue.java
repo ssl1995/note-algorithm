@@ -1,6 +1,6 @@
 package com.ssl.note.zuo.learn.C04_基础的数据结构;
 
-import com.ssl.note.zuo.utils.ListNode;
+import com.ssl.note.common.utils.ListNode;
 
 public class Code02_DeleteGivenValue {
 

@@ -1,4 +1,4 @@
-package com.ssl.note.zuo.utils;
+package com.ssl.note.common.utils;
 
 
 public class Node {

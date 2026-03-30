@@ -1,6 +1,6 @@
 package com.ssl.note.leetcode.编号刷题.LC24_两两交换;
 
-import com.ssl.note.leetcode.utils.ListNode;
+import com.ssl.note.common.utils.ListNode;
 
 public class Solution {
 

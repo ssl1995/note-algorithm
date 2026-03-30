@@ -1,7 +1,7 @@
 package com.ssl.note.leetcode.编号刷题.LC114_二叉树展开为链表;
 
 
-import com.ssl.note.leetcode.utils.TreeNode;
+import com.ssl.note.common.utils.TreeNode;
 
 import java.util.*;
 

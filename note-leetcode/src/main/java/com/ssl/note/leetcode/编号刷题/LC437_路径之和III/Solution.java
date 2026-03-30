@@ -1,7 +1,7 @@
 package com.ssl.note.leetcode.编号刷题.LC437_路径之和III;
 
 
-import com.ssl.note.leetcode.utils.TreeNode;
+import com.ssl.note.common.utils.TreeNode;
 
 import java.lang.annotation.Target;
 import java.util.HashMap;
