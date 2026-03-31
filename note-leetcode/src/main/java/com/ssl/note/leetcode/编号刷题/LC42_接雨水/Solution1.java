@@ -1,10 +1,5 @@
 package com.ssl.note.leetcode.编号刷题.LC42_接雨水;
 
-/**
- * @author SongShengLin
- * @date 2022/1/23 10:36 PM
- * @description
- */
 public class Solution1 {
 
   /**
