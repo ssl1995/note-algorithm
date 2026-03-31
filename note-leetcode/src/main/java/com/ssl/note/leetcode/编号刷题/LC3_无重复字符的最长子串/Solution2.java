@@ -2,11 +2,6 @@ package com.ssl.note.leetcode.编号刷题.LC3_无重复字符的最长子串;
 
 import java.util.Arrays;
 
-/**
- * @author SongShengLin
- * @date 2022/1/18 9:19 AM
- * @description
- */
 public class Solution2 {
   /**
    * 无重复字符的最长子串
@@ -21,7 +16,7 @@ public class Solution2 {
     }
     int maxLen = 0; // 最大长度
     int left = 0;// 窗口内无重复字符的左边界
-
+    // 题目：s 由英文字母、数字、符号和空格组成
     int[] map = new int[256];
     Arrays.fill(map, -1);
 
@@ -43,7 +38,7 @@ public class Solution2 {
 
   public static void main(String[] args) {
     Solution2 solution = new Solution2();
-    String s = "abba";
+    String s = "abcabcbb";// 3
     System.out.println(solution.lengthOfLongestSubstring(s));
   }
 }

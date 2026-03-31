@@ -4,11 +4,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * @author SongShengLin
- * @date 2022/1/18 9:19 AM
- * @description
- */
 public class Solution1 {
   /**
    * 无重复字符的最长子串
@@ -28,7 +23,8 @@ public class Solution1 {
     for (int i = 0; i < s.length(); i++) {
       char c = s.charAt(i);
 
-      // 当前元素上一次出现的位置：取当前字符上次出现位置和当前left的较大值
+      // map：记录本
+      // map+left的比较：保证上一次出现的位置在窗口内
       if (map.containsKey(c) && map.get(c) >= left) {
         left = map.get(c) + 1;
       }
@@ -42,7 +38,7 @@ public class Solution1 {
 
   public static void main(String[] args) {
     Solution1 solution = new Solution1();
-    String s = "abcabcbb";
+    String s = "abba";// 答案是ab，长度=2，这样容易理解
     System.out.println(solution.lengthOfLongestSubstring(s));
   }
 }
