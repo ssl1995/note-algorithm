@@ -8,7 +8,7 @@ import java.util.List;
  * @date 2022/2/26 6:25 PM
  * @description
  */
-public class Solution2 {
+public class SolutionTest {
   /**
    * 给定两个字符串 s 和 p，找到 s 中所有 p 的 异位词 的子串，返回这些子串的起始索引
    * s和p仅包含小写字母
@@ -19,50 +19,51 @@ public class Solution2 {
    * 起始索引等于 6 的子串是 "bac", 它是 "abc" 的异位词。
    */
   public List<Integer> findAnagrams(String s, String p) {
-    List<Integer> res = new ArrayList<>();
-    if (s.length() < p.length()) {
-      return res;
+    if (s == null || (p.length() > s.length())) {
+      return new ArrayList<>();
     }
-    int[] need = new int[26];
-    int[] window = new int[26];
+    List<Integer> res = new ArrayList<>();
     int needCount = 0;
-    // 统计p中的字符种类和数量
+    int[] pMap = new int[26];
     for (char c : p.toCharArray()) {
-      if (need[c - 'a'] == 0) needCount++;
-      need[c - 'a']++;
+      if (pMap[c - 'a'] == 0) {
+        needCount++;
+      }
+      pMap[c - 'a']++;
     }
 
-    int left = 0, valid = 0;
+    int[] sMap = new int[26];
+    int left = 0;
+    int valid = 0;
     for (int right = 0; right < s.length(); right++) {
-      // 1.右边字符进入窗口
       char c = s.charAt(right);
-      int idx = c - 'a';
-      window[idx]++;
-      if (window[idx] == need[idx]) {
+      int cIndex = c - 'a';
+      sMap[cIndex]++;
+
+      if (sMap[cIndex] == pMap[cIndex]) {
         valid++;
       }
 
-      // 2.窗口超长，左边字符离开
       while (right - left + 1 > p.length()) {
-        char d = s.charAt(left);
-        int dIdx = d - 'a';
-        if (window[dIdx] == need[dIdx]) {
+        int leftIndex = s.charAt(left) - 'a';
+
+        if (sMap[leftIndex] == pMap[leftIndex]) {
           valid--;
         }
-        window[dIdx]--;
+        sMap[leftIndex]--;
         left++;
       }
 
-      // 3.所有字符种类都匹配
-      if (valid == needCount) {
+      if (needCount == valid) {
         res.add(left);
       }
     }
+
     return res;
   }
 
   public static void main(String[] args) {
-    Solution2 solution = new Solution2();
+    SolutionTest solution = new SolutionTest();
     String s = "bpaa";
     String t = "aa";
     System.out.println(solution.findAnagrams(s, t));
