@@ -1,25 +1,3 @@
-本地已经安装了飞书cli，读取这段飞书在线内容：https://ls8sck0zrg.feishu.cn/wiki/I09DwnyDhitsijkBq98c1sponqd
-保存地址：D:\project\note-up\docs\my-note\02-konw\java
-要求：不要有空行和换行，清理飞书特有的标签（callout、readonly-block、cite、图片引用等），保留纯文本 Markdown 内容，我复制进飞书方便
-
-MyBatis 有哪些设计模式？
-分析：
-- 工厂模式：工厂模式在 MyBatis 中的典型代表是 SqlSessionFactory。SqlSession 是 MyBatis 中的重要 Java 接口，可以通过该接口来执行 SQL 命令、获取映射器示例和管理事务，而 SqlSessionFactory 正是用来产生 SqlSession 对象的，所以它在 MyBatis 中是比较核心的接口之一。
-- 建造者模式：建造者模式在 MyBatis 中的典型代表是 SqlSessionFactoryBuilder。普通的对象都是通过 new 关键字直接创建的，但是如果创建对象需要的构造参数很多，且不能保证每个参数都是正确的或者不能一次性得到构建所需的所有参数，那么就需要将构建逻辑从对象本身抽离出来，让对象只关注功能，把构建交给构建类，这样可以简化对象的构建，也可以达到分步构建对象的目的，而 SqlSessionFactoryBuilder 的构建过程正是如此。
-- 单例模式：单例模式在 MyBatis 中的典型代表是 ErrorContext。ErrorContext 是线程级别的的单例，每个线程中有一个此对象的单例，用于记录该线程的执行环境的错误信息。
-- 适配器模式：适配器模式在 MyBatis 中的典型代表是 Log。MyBatis 中的日志模块适配了以下多种日志类型：SLF4J、Apache Commons Logging、Log4j 2、Log4j、JDK logging
-- 代理模式：代理模式在 MyBatis 中的典型代表是 MapperProxyFactory。MapperProxyFactory 的 newInstance（） 方法就是生成一个具体的代理来实现某个功能。
-- 模板方法模式：模板方法在 MyBatis 中的典型代表是 BaseExecutor，在 MyBatis 中 BaseExecutor 实现了大部分 SQL 执行的逻辑。
-- 装饰器模式：装饰器模式在 MyBatis 中的典型代表是 Cache。Cache 除了有数据存储和缓存的基本功能外（由 PerpetualCache 永久缓存实现），还有其他附加的 Cache 类，比如先进先出的 FifoCache、最近最少使用的 LruCache、防止多线程并发访问的 SynchronizedCache 等众多附加功能的缓存类。
-
-我现在要重新看下mybatis的源码中设计的设计模式，可以比对Spring提到过的设计模式一起总结，有过的示例demo不用重复写：
-之前Spring设计模式总结：D:\project\note-up\docs\my-note\02-konw\java\Spring常用设计模式.md
-代码示例路径：D:\project\note-up\note-know\src\main\java\com\ssl\know\java\pattern
-然后输出一份md总结文档，不要有空行和换行，方便我复制进飞书
-输出文档路径：D:\project\note-up\docs\my-note\02-konw\java
-
-
-我整理的面试题：https://my.feishu.cn/wiki/KjxywQ9YQisqKNkTOySco7dKnhd
-我的简历-技能描述：https://my.feishu.cn/wiki/FN2OwF16yi7t2EkvFZ9cPlAPnZf
-我目前工作经验5年，实习2年，工作3年，年纪31岁，上一家公司从事权限系统和OA系统，
-现在需要重新整理简历的个人技能描述部分，请结合已有信息，可以保留现有的格式，给出技能描述部分如何修改？
+Agent面试题：https://xiaolinnote.com/ai/agent/1_whatisagent.html
+能扫描整理下来，可以联网提炼精简关注面试官会关注的带你，在本地目录形成一个md文档：D:\project\note-up\docs\my-note\03-ai。
+格式要求是行与行之间不要有空行，错误的格式和图片引用可以删除
