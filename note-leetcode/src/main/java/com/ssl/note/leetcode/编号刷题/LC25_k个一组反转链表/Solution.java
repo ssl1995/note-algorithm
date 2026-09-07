@@ -25,7 +25,7 @@ public class Solution {
     ListNode start;
     ListNode end = pre;
     ListNode next;
-
+    // end!=null也行，内部靠break跳出
     while (end.next != null) {
       // 1、end从pre走k步，走到需要遍历的结尾
       for (int i = 0; i < k && end != null; i++) {

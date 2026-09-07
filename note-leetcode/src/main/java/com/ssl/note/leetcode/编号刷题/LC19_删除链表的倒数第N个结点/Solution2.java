@@ -28,9 +28,7 @@ public class Solution2 {
       fast = fast.next;
       n--;
     }
-    // 注意循环条件：fast.next != null
-    // 换句话：fast.next ==null结束遍历
-    // 4.快慢指针一起走
+    // 4.slow停在待删除的前驱，fast停在最后一个节点
     while (fast.next != null) {
       fast = fast.next;
       slow = slow.next;
