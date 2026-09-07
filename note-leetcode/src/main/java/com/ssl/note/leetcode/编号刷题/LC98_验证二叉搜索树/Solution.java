@@ -25,13 +25,12 @@ public class Solution {
         root = root.left;
       } else {
         TreeNode pop = stack.pop();
-        root = pop.right;
-
-        // 中序遍历，当前和前一个比大小
         if (pre != null && pre.val >= pop.val) {
           return false;
+        } else {
+          pre = pop;
+          root = pop.right;
         }
-        pre = pop;
       }
     }
 
