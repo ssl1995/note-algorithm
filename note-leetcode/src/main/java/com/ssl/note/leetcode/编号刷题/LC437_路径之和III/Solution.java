@@ -37,19 +37,15 @@ public class Solution {
     if (node == null) {
       return;
     }
+    // LC560和为k的字数组一样
     preSum += node.val;
-
-    if (map.containsKey(preSum - target)) {
-      res += map.get(preSum - target);
-    }
-
+    res += map.getOrDefault(preSum - target, 0);
     map.put(preSum, map.getOrDefault(preSum, 0) + 1);
-
+    // 本题还要多一个遍历左右子树和回溯
     dfs(node.left, preSum, target, map);
     dfs(node.right, preSum, target, map);
-
-    // DFS从左子树回到父节点后要去右子树，左子树路径上的前缀和不能留在 map 中影响右子树的计算
-    // 回溯，消除该节点路径和的影响
+    // 1、回溯必须整颗子树处理完，才能回溯
+    // 2、前面加过一次，后面只能减一次
     map.put(preSum, map.getOrDefault(preSum, 0) - 1);
   }
 

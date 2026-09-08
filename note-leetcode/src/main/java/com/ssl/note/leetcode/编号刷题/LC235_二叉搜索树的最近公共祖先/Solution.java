@@ -31,6 +31,7 @@ public class Solution {
   public TreeNode lowestCommonAncestor1(TreeNode root, TreeNode p, TreeNode q) {
     TreeNode cur = root;
     while (cur != null) {
+      // 先判断是否能同侧走，因为会遍历到自己，不能有等于
       if (p.val < cur.val && q.val < cur.val) {
         cur = cur.left;
       } else if (p.val > cur.val && q.val > cur.val) {
@@ -48,6 +49,7 @@ public class Solution {
   public TreeNode lowestCommonAncestor2(TreeNode root, TreeNode p, TreeNode q) {
     TreeNode cur = root;
     while (cur != null) {
+      // 先判断是否是公共祖先，就可以有等于
       if ((p.val <= cur.val && cur.val <= q.val) || (q.val <= cur.val && cur.val <= p.val)) {
         return cur;
       } else if (p.val > cur.val) {

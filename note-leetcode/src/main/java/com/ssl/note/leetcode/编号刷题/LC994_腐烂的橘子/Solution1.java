@@ -73,4 +73,10 @@ public class Solution1 {
       fresh--;
     }
   }
+
+  public static void main(String[] args) {
+    Solution1 practice = new Solution1();
+    int[][] grid = {{2, 1, 1}, {1, 1, 0}, {0, 1, 1}};
+    System.out.println(practice.orangesRotting(grid));
+  }
 }
