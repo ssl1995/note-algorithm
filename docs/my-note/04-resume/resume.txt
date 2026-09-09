@@ -1,0 +1,13 @@
+个人情况：D:\project\note-up\docs\my-note\04-resume\个人情况.txt
+面试题整理：D:\project\note-up\docs\my-note\04-resume\八股文整理背景.txt
+
+现在要修改个人技能描述部分：
+个人技能飞书在线文档：https://my.feishu.cn/wiki/FN2OwF16yi7t2EkvFZ9cPlAPnZf
+以上链接有2个一级标题：第二个标题是当前要修改精进的
+第一个一级标题：2023版
+第二个一级标题：2026版
+
+请结合上面的面试题整理和联网补充、个人情况，给出第二个一级标题【2026版】的个人技能描述修改意见
+
+我最近把agent相关知识点看了，但是没有实际项目经验，请扫描以下在线文档，给出补充agent相关知识的个人技能描述，我加进去：
+https://my.feishu.cn/wiki/Y9hcw9UI6iiM8FkjbYNcQPTunGc
