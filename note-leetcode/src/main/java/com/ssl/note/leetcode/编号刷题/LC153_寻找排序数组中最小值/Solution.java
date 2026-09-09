@@ -20,6 +20,27 @@ public class Solution {
     }
     int left = 0;
     int right = nums.length - 1;
+    while (left < right) {
+      int mid = left + (right - left) / 2;
+      int t = nums[right];
+      if (nums[mid] < t) {
+        // <,最小值可能是nums[mid]
+        right = mid;
+      } else {
+        // >,最小值不可能是nums[mid]
+        left = mid + 1;
+      }
+    }
+    return nums[left];
+  }
+
+  // 如果nums有重复元素？
+  public int findMin1(int[] nums) {
+    if (nums == null) {
+      return -1;
+    }
+    int left = 0;
+    int right = nums.length - 1;
     while (left <= right) {
       int mid = left + (right - left) / 2;
       // 断崖点=唯一一个左边元素比右边元素大位置

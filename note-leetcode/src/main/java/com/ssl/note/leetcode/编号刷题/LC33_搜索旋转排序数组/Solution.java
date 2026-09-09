@@ -22,15 +22,46 @@ public class Solution {
       if (nums[m] == target) {
         return m;
       } else {
-        // 左侧有序，就二分
-        if (nums[0] <= nums[m]) {
-          if (nums[0] <= target && target < nums[m]) {
+        // 哪侧有序就二分哪侧，先比较端点再比较值域
+        // m是向下取整，两个元素时，l=m，左端点必须有等于
+        if (nums[l] <= nums[m]) {
+          if (nums[l] <= target && target < nums[m]) {
             r = m - 1;
           } else {
             l = m + 1;
           }
         } else {
           // 右侧有序，就二分
+          if (nums[m] < target && target <= nums[n - 1]) {
+            l = m + 1;
+          } else {
+            r = m - 1;
+          }
+        }
+
+      }
+    }
+    return -1;
+  }
+
+  public int searchError(int[] nums, int target) {
+    int n = nums.length;
+    int l = 0;
+    int r = n - 1;
+
+    while (l <= r) {
+      int m = l + (r - l) / 2;
+      if (nums[m] == target) {
+        return m;
+      } else {
+        // 两元素二分，m是想下取整，左端点必须是<=
+        if (nums[l] < nums[m]) {
+          if (nums[l] <= target && target < nums[m]) {
+            r = m - 1;
+          } else {
+            l = m + 1;
+          }
+        } else {
           if (nums[m] < target && target <= nums[n - 1]) {
             l = m + 1;
           } else {
