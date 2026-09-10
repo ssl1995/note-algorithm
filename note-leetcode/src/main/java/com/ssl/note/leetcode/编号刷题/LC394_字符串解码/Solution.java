@@ -32,21 +32,20 @@ public class Solution {
       } else if (c == '[') {
         // 左括号，压入数字栈和字母栈
         numsStack.push(num);
-        num = 0;
-
         letterStack.push(res.toString());
-
+        num = 0;
         res = new StringBuilder();
       } else {
         // 右括号，两个栈都是同时弹出
         int count = numsStack.isEmpty() ? 0 : numsStack.pop();
+        String pop = letterStack.isEmpty() ? "" : letterStack.pop();
+
         StringBuilder temp = new StringBuilder();
         while (count-- > 0) {
           temp.append(res);
         }
 
         // 与弹出的字母栈拼接
-        String pop = letterStack.isEmpty() ? "" : letterStack.pop();
         res = new StringBuilder(pop + temp);
       }
     }

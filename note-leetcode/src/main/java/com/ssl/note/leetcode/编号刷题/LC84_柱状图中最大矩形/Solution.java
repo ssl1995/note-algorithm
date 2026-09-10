@@ -64,22 +64,26 @@ public class Solution {
     // 对于每根柱子，以它为高的最大面积，是找到左边第一个比它矮的和右边第一个比它矮的
     // 面积= (r-l+1-2) * h[cur]
     // 所以思考每个柱子前面的数和它自己，是单调递增的，所以是单调递增栈
-    for (int right = 0; right < n; right++) {
-      while (!stack.isEmpty() && heights[right] <= heights[stack.peek()]) {
+    for (int i = 0; i < n; i++) {
+      // < 也行，最后会到外边的while处理
+      while (!stack.isEmpty() && heights[i] <= heights[stack.peek()]) {
         int cur = stack.pop();
-        int left = stack.isEmpty() ? -1 : stack.peek();
-        int curArea = (right - left - 1) * heights[cur];
+        int l = stack.isEmpty() ? -1 : stack.peek();
+        int r = i;
+        int curArea = (r - l - 1) * heights[cur];
 
         maxArea = Math.max(maxArea, curArea);
       }
-      stack.push(right);
+      stack.push(i);
     }
     // 处理栈中剩余元素：这些元素的右边没有比它们更矮的柱子了
     // 此时右边界看成数组长度n
     while (!stack.isEmpty()) {
       int cur = stack.pop();
-      int left = stack.isEmpty() ? -1 : stack.peek();
-      int curArea = (n - left - 1) * heights[cur];
+      int l = stack.isEmpty() ? -1 : stack.peek();
+      int r = n;
+      int curArea = (r - l - 1) * heights[cur];
+
       maxArea = Math.max(maxArea, curArea);
     }
     return maxArea;
@@ -87,7 +91,7 @@ public class Solution {
 
   public static void main(String[] args) {
     Solution solution = new Solution();
-    int[] heights = {1,2,3};
+    int[] heights = {1, 2, 3};
     System.out.println(solution.largestRectangleArea(heights));
   }
 }
